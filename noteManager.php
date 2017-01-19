@@ -7,55 +7,83 @@
 
     <link rel="stylesheet" href="bs/css/bootstrap.min.css">
     <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="css/noteManager.css">
+    <link rel="stylesheet" href="css/noteManager.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bs/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/marked.js"></script>
-    <script type="text/javascript" src="js/markdown_dom_parser.js"></script>
-    <script type="text/javascript" src="js/html2markdown.js"></script>
+    <!--<script type="text/javascript" src="js/markdown_dom_parser.js"></script>-->
+    <!--<script type="text/javascript" src="js/html2markdown.js"></script>-->
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="js/component.js"></script>
 
     <script type="text/javascript">
+      /*
+      * function : 获取数据库中所有信息
+      * range：点击新建的时候和读入的时候
+      */
       function readAllDatas(){
+        $(".loading-panel").show();
+
         $.post("read.php", function(data){
         var notebook = $("#note-notebook");
-        notebook.empty();
+        notebook.find(".artical-unit").remove();
         for(var i = data.length - 1; i >= 0; i--){
-          var unit = $("<div>").addClass("artical-unit dot-ellipsis dot-resize-update ");
+          var unit = $("<div>").addClass("artical-unit dot-ellipsis dot-resize-update");
           if(i == data.length - 1)
             unit.addClass("active");
+
           var id=$("<p class='myid' hidden>"+data[i].id+"</p>");
           var tags = $("<p class='tags' hidden>" + data[i].tags + "</p>");
           var title = $("<h3>").addClass("artical-title")
-                             .text(data[i].title);
+                               .text(data[i].title);
           var date = $("<p>").addClass("artical-date")
                              .text(data[i].create_date);
           var content = $("<p>").addClass("artical-content")
-                             .text(data[i].content);
-          unit.append(id, title, date, content);
-          notebook.append(unit);
-        }
+                                .text(data[i].content);
 
+          notebook.append(unit.append(id, title, date, content));
+        }
         unitClick(".artical-unit", "active");
+        $(".loading-panel").hide();
        });
       }
     </script>
     <script type="text/javascript">
       $(function(){
-        $("#save").bind("click", function(e){
-          $.post("save.php",
+        //新建文章
+        $("#add-artical").bind("click", function(e){
+          $(".loading-panel").show();
+          $.post("add.php",
           {
-            tags :  $("#tags").val(),
-            title : $("#title").val(),
-            content : $("#editor-box").val()
+            tags  :  "无",
+            title :　"无标题",
+            content : "无内容"
           }, function(e){
             readAllDatas();
           });
-
+        });
+        //保存文章
+        $("#save").bind("click", function(e){
+          $(".loading-panel").show();
+          $.post("save.php",
+            {
+              id : $(".active").find(".myid").text(),
+              tags : $('#tags').val(),
+              title : $('#title').val(),
+              content : $('#editor-box').val()
+            },
+            function(data){
+              if(data.status == "fail"){
+                alert("fail");
+              }
+              $(".loading-panel").hide();
+            }
+          );
         });
 
+        //删除指定序号的文章
         $("#delete").bind("click", function(e){
+          $(".loading-panel").show();
           var active = $(".active");
           var idcode = active.find(".myid").text();
           $.post("delete.php", {id : idcode}, function(data){
@@ -63,6 +91,7 @@
               console.log("删除成功");
               active.remove();
             }
+            $(".loading-panel").hide();
           }, "json");
         });
       });
@@ -78,14 +107,18 @@
       });
     </script>
 
-    </script>
     <title>NoteManager</title>
   </head>
   <body>
     <div id="note-container" class="container-fluid">
+      <div class="loading-panel">
+        <img src="picture/loading.gif" class="loading-icon" alt="">
+      </div>
       <div class="row">
         <div id="note-notebook" class="col-md-2 col-sm-2">
-
+          <div class="menu-group">
+            <img src="add.svg" alt="" class="icon" id="add-artical">
+          </div>
         </div>
 
         <div id="editor" class="col-md-5 col-sm-5">

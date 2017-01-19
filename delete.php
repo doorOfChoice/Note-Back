@@ -5,6 +5,7 @@
       $id = $_POST['id'];
       $conn = new MysqlOperation("localhost", "root", "root", "test");
       $result = $conn->query("DELETE from artical where id={$id}");
+
       $array=array();
       if($result){
         $array["status"] = "ok";

@@ -1,27 +1,29 @@
 <?php
   require("phpModel/MysqlOperation.php");
 
-  if(isset($_POST["title"])   &&
-     isset($_POST["content"]) &&
-     isset($_POST["tags"])  ) {
+  if(isset($_POST['id'])    &&
+     isset($_POST["tags"])  &&
+     isset($_POST["title"]) &&
+     isset($_POST["content"])){
 
+    $id = $_POST['id'];
     $tags = $_POST['tags'];
-    $title = trim($_POST['title']);
+    $title = $_POST['title'];
     $content = $_POST['content'];
+    $table = "artical";
 
-    $mql    = new MysqlOperation("localhost", "root", "root", "test");
-    $result = $mql->query(
-      "INSERT INTO artical(title, create_date, change_date, content, tags)
-        VALUES(\"{$title}\", from_unixtime(unix_timestamp(), '%Y-%m-%d %H-%i-%s'),
-        from_unixtime(unix_timestamp(), '%Y-%m-%d %H-%i-%s'), \"{$content}\", \"{$tags}\");"
-    );
+    $mql = new MysqlOperation("localhost", "root", "root", "test");
 
-    if($result){
-      die("yes");
+    $result = $mql->query("
+    UPDATE {$table} SET tags=\"{$tags}\",title=\"{$title}\",
+    content=\"{$content}\",change_date=from_unixtime(unix_timestamp())
+    where id={$id};
+    ");
+
+    if(!$result){
+      echo json_encode(array("status"=>"fail"));
     }else{
-
+      echo json_encode(array("status"=>"ok"));
     }
   }
-
-
- ?>
+?>
