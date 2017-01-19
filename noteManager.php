@@ -11,12 +11,31 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bs/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/marked.js"></script>
-    <!--<script type="text/javascript" src="js/markdown_dom_parser.js"></script>-->
-    <!--<script type="text/javascript" src="js/html2markdown.js"></script>-->
+    <script type="text/javascript" src="js/markdown_dom_parser.js"></script>
+    <script type="text/javascript" src="js/html2markdown.js"></script>
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="js/component.js"></script>
 
     <script type="text/javascript">
+      function create_content(data){
+        var notebook = $("#note-notebook");
+        notebook.find(".artical-unit").remove();
+        for(var i = data.length - 1; i >= 0; i--){
+          var unit = $("<div class='artical-unit dot-ellipsis dot-resize-update'>");
+
+          if(i == data.length - 1)
+            unit.addClass("active");
+
+          var id=$("<p class='artical-id' hidden>" + data[i].id + "</p>");
+          var tags = $("<p class='artical-tags' hidden>" + data[i].tags + "</p>");
+          var title = $("<h3 class='artical-title'>").text(data[i].title);
+          var date = $("<p class='artical-date'>").text(data[i].create_date);
+          var content = $("<p class='artical-content'>").text(data[i].content);
+          unit.append(id, tags, title, date, content);
+          notebook.append(unit);
+        }
+        unitClick(".artical-unit", "active");
+      }
       /*
       * function : 获取数据库中所有信息
       * range：点击新建的时候和读入的时候
@@ -25,26 +44,8 @@
         $(".loading-panel").show();
 
         $.post("phpModel/read.php", function(data){
-        var notebook = $("#note-notebook");
-        notebook.find(".artical-unit").remove();
-        for(var i = data.length - 1; i >= 0; i--){
-          var unit = $("<div>").addClass("artical-unit dot-ellipsis dot-resize-update");
-          if(i == data.length - 1)
-            unit.addClass("active");
-
-          var id=$("<p id='artical-id' hidden>"+data[i].id+"</p>");
-          var tags = $("<p id='artical-tags' hidden>" + data[i].tags + "</p>");
-          var title = $("<h3>").addClass("artical-title")
-                               .text(data[i].title);
-          var date = $("<p>").addClass("artical-date")
-                             .text(data[i].create_date);
-          var content = $("<p>").addClass("artical-content")
-                                .text(data[i].content);
-
-          notebook.append(unit.append(id, tags, title, date, content));
-        }
-        unitClick(".artical-unit", "active");
-        $(".loading-panel").hide();
+          create_content(data);
+          $(".loading-panel").hide();
        });
       }
     </script>
@@ -65,33 +66,50 @@
         //保存文章
         $("#save").bind("click", function(e){
           $(".loading-panel").show();
-          console.log($('.active').find("#artical-tags").text());
+          var active = $(".active");
           $.post("phpModel/save.php",
             {
-              id : $(".active").find("#artical-id").text(),
+              id : $(".active").find(".artical-id").text(),
               tags : $('#tags').val(),
               title : $('#title').val(),
-              content : $('#editor-box').val(),
-              timeout : 10
+              content : $('#editor-box').val()
             },
             function(data){
               $(".loading-panel").hide();
+              active.find('.artical-title').text(data.title);
+              active.find('.artical-content').text(data.content);
+              active.find('.artical-tags').text(data.tags);
             }
-          );
+          , "json");
         });
 
         //删除指定序号的文章
         $("#delete").bind("click", function(e){
           $(".loading-panel").show();
           var active = $(".active");
-          var idcode = active.find("#artical-id").text();
+          var idcode = active.find(".artical-id").text();
           $.post("phpModel/delete.php", {id : idcode}, function(data){
             if(data.status == 'ok'){
-              console.log("删除成功");
               active.remove();
             }
             $(".loading-panel").hide();
           }, "json");
+        });
+
+        //查找指定标题的文章
+        $("#sear-btn").bind("click", function(e){
+          $(".loading-panel").show();
+          if(!($.trim($("#sear-box").val()) == '')){
+            $.post("phpModel/find.php", {
+                query_type : "2",
+                string : $("#sear-box").val()
+            },function(data){
+              create_content(data);
+              $(".loading-panel").hide();
+            },"json");
+          }else{
+            readAllDatas();
+          }
         });
       });
     </script>
@@ -117,7 +135,11 @@
 
         <div id="note-notebook" class="col-md-2 col-sm-2">
           <div class="menu-group">
-            <img src="picture/add.svg" alt="" class="icon" id="add-artical">
+            <img src="picture/add.svg"  class="icon" id="add-artical">
+          </div>
+          <div class="search-group">
+            <input type="text" class="search-box" id="sear-box">
+            <button type="button" class="search-btn" id="sear-btn"></button>
           </div>
         </div>
 

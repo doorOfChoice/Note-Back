@@ -3,7 +3,7 @@
 
     if(isset($_POST['id'])){
       $id = $_POST['id'];
-      $conn = new MysqlOperation("localhost", "root", "root", $basename);
+      $conn = new MysqlOperation();
       $result = $conn->query("DELETE from {$table} where id={$id}");
 
       $array=array();

@@ -11,7 +11,7 @@
     $title = $_POST['title'];
     $content = $_POST['content'];
 
-    $mql = new MysqlOperation("localhost", "root", "root", $basename);
+    $mql = new MysqlOperation();
 
     $result = $mql->query("
     UPDATE {$table} SET tags=\"{$tags}\",title=\"{$title}\",
@@ -22,7 +22,8 @@
     if(!$result){
       echo json_encode(array("status"=>"fail"));
     }else{
-      echo json_encode(array("status"=>"ok"));
+      $newRes = $mql->query("SELECT * FROM {$table} WHERE id={$id}");
+      echo json_encode($newRes->fetch_assoc());
     }
   }
 ?>

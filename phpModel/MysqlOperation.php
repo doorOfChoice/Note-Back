@@ -3,18 +3,18 @@
   $basename = "test";
   $table    = "artical";
   class MysqlOperation{
-    private  $servername = "",
-             $username   = "",
-             $password   = "",
-             $dbname     = "",
+    private  $servername = "localhost",
+             $username   = "root",
+             $password   = "root",
+             $dbname     = "test",
              $conn       = null;
     public function __construct(){
       $args = func_get_args();
       $numb = count($args);
 
       switch($numb){
-        case 0: $this->conn = new \mysqli('localhost', 'root', 'root');break;
-        case 3: $this->conn = new \mysqli($args[0], $args[1], $args[2]);break;
+        case 0: $this->conn = new \mysqli($this->servername, $this->username, $this->password, $this->dbname);break;
+        case 3: $this->conn = new \mysqli($args[0], $args[1], $args[2], $dbname);break;
         case 4: $this->conn = new \mysqli($args[0], $args[1], $args[2], $args[3]);break;
       }
 

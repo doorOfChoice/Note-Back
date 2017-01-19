@@ -9,7 +9,7 @@
     $title = trim($_POST['title']);
     $content = $_POST['content'];
 
-    $mql    = new MysqlOperation("localhost", "root", "root", $basename);
+    $mql    = new MysqlOperation();
     $result = $mql->query(
       "INSERT INTO {$table}(title, create_date, change_date, content, tags)
         VALUES(\"{$title}\", from_unixtime(unix_timestamp(), '%Y-%m-%d %H-%i-%s'),

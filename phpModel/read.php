@@ -1,7 +1,7 @@
 <?php
   require("MysqlOperation.php");
   header("Content-Type:text/json");
-  $msql = new MysqlOperation("localhost", "root", "root", $basename);
+  $msql = new MysqlOperation();
   $result = $msql->getDatas($table);
 
   $array = array();
