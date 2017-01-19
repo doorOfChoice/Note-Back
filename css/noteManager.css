@@ -17,13 +17,13 @@ html, body, #note-container{
 }
 
 .artical-unit{
-
   padding: 5px;
   height: 120px;
   color: black;
   background-color: white;
   border-bottom: 1px grey solid;
   overflow: hidden;
+  cursor:  pointer;
   transition: background-color 1.0s, color 1.0s;
 }
 
@@ -33,6 +33,10 @@ html, body, #note-container{
   transition: background-color 1.0s, color 1.0s;
 }
 
+.active{
+  color:white;
+  background-color: green;
+}
 .artical-unit .artical-title{
 
   height: auto;
@@ -66,13 +70,17 @@ html, body, #note-container{
 
 #editor .editor-box{
   width: 100%;
-  height: 90%;
+  height: 85%;
   resize: none;
   overflow-x: hidden;
   overflow-y: scroll;
   word-wrap: break-word;
 }
-
+#editor .editor-title{
+  width: 100%;
+  height: 5%;
+  overflow: hidden;
+}
 #editor #buttonGroup{
   height: 10%;
   float: left;
