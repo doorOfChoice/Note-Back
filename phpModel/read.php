@@ -1,8 +1,8 @@
 <?php
-  require("phpModel/MysqlOperation.php");
+  require("MysqlOperation.php");
   header("Content-Type:text/json");
-  $msql = new MysqlOperation("localhost", "root", "root", "test");
-  $result = $msql->getDatas("artical");
+  $msql = new MysqlOperation("localhost", "root", "root", $basename);
+  $result = $msql->getDatas($table);
 
   $array = array();
   while($row = $result->fetch_assoc()){

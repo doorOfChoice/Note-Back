@@ -24,7 +24,7 @@
       function readAllDatas(){
         $(".loading-panel").show();
 
-        $.post("read.php", function(data){
+        $.post("phpModel/read.php", function(data){
         var notebook = $("#note-notebook");
         notebook.find(".artical-unit").remove();
         for(var i = data.length - 1; i >= 0; i--){
@@ -32,8 +32,8 @@
           if(i == data.length - 1)
             unit.addClass("active");
 
-          var id=$("<p class='myid' hidden>"+data[i].id+"</p>");
-          var tags = $("<p class='tags' hidden>" + data[i].tags + "</p>");
+          var id=$("<p id='artical-id' hidden>"+data[i].id+"</p>");
+          var tags = $("<p id='artical-tags' hidden>" + data[i].tags + "</p>");
           var title = $("<h3>").addClass("artical-title")
                                .text(data[i].title);
           var date = $("<p>").addClass("artical-date")
@@ -41,7 +41,7 @@
           var content = $("<p>").addClass("artical-content")
                                 .text(data[i].content);
 
-          notebook.append(unit.append(id, title, date, content));
+          notebook.append(unit.append(id, tags, title, date, content));
         }
         unitClick(".artical-unit", "active");
         $(".loading-panel").hide();
@@ -53,7 +53,7 @@
         //新建文章
         $("#add-artical").bind("click", function(e){
           $(".loading-panel").show();
-          $.post("add.php",
+          $.post("phpModel/add.php",
           {
             tags  :  "无",
             title :　"无标题",
@@ -65,17 +65,16 @@
         //保存文章
         $("#save").bind("click", function(e){
           $(".loading-panel").show();
-          $.post("save.php",
+          console.log($('.active').find("#artical-tags").text());
+          $.post("phpModel/save.php",
             {
-              id : $(".active").find(".myid").text(),
+              id : $(".active").find("#artical-id").text(),
               tags : $('#tags').val(),
               title : $('#title').val(),
-              content : $('#editor-box').val()
+              content : $('#editor-box').val(),
+              timeout : 10
             },
             function(data){
-              if(data.status == "fail"){
-                alert("fail");
-              }
               $(".loading-panel").hide();
             }
           );
@@ -85,8 +84,8 @@
         $("#delete").bind("click", function(e){
           $(".loading-panel").show();
           var active = $(".active");
-          var idcode = active.find(".myid").text();
-          $.post("delete.php", {id : idcode}, function(data){
+          var idcode = active.find("#artical-id").text();
+          $.post("phpModel/delete.php", {id : idcode}, function(data){
             if(data.status == 'ok'){
               console.log("删除成功");
               active.remove();
@@ -111,13 +110,14 @@
   </head>
   <body>
     <div id="note-container" class="container-fluid">
-      <div class="loading-panel">
-        <img src="picture/loading.gif" class="loading-icon" alt="">
-      </div>
       <div class="row">
+        <div class="loading-panel">
+          <img src="picture/loading.gif" class="loading-icon" alt="">
+        </div>
+
         <div id="note-notebook" class="col-md-2 col-sm-2">
           <div class="menu-group">
-            <img src="add.svg" alt="" class="icon" id="add-artical">
+            <img src="picture/add.svg" alt="" class="icon" id="add-artical">
           </div>
         </div>
 
@@ -133,9 +133,7 @@
             </div>
         </div>
 
-        <div id="preview" class="col-md-5 col-sm-5">
-            dsdsad
-        </div>
+        <div id="preview" class="col-md-5 col-sm-5"></div>
       </div>
 
     </div>

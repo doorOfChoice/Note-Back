@@ -1,10 +1,10 @@
 <?php
-    require("phpModel/MysqlOperation.php");
+    require("MysqlOperation.php");
 
     if(isset($_POST['id'])){
       $id = $_POST['id'];
-      $conn = new MysqlOperation("localhost", "root", "root", "test");
-      $result = $conn->query("DELETE from artical where id={$id}");
+      $conn = new MysqlOperation("localhost", "root", "root", $basename);
+      $result = $conn->query("DELETE from {$table} where id={$id}");
 
       $array=array();
       if($result){

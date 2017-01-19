@@ -1,6 +1,7 @@
 <?php
   //namespace mysql;
-
+  $basename = "test";
+  $table    = "artical";
   class MysqlOperation{
     private  $servername = "",
              $username   = "",

@@ -1,5 +1,5 @@
 <?php
-  require("phpModel/MysqlOperation.php");
+  require("MysqlOperation.php");
 
   if(isset($_POST['id'])    &&
      isset($_POST["tags"])  &&
@@ -10,9 +10,8 @@
     $tags = $_POST['tags'];
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $table = "artical";
 
-    $mql = new MysqlOperation("localhost", "root", "root", "test");
+    $mql = new MysqlOperation("localhost", "root", "root", $basename);
 
     $result = $mql->query("
     UPDATE {$table} SET tags=\"{$tags}\",title=\"{$title}\",
