@@ -27,7 +27,7 @@ function create_content(data){
 function readAllDatas(){
   $(".loading-panel").show();
 
-  $.post("phpModel/read", function(data){
+  $.post("phpModel/read.php", function(data){
     create_content(data);
     $(".loading-panel").hide();
  });
@@ -38,7 +38,7 @@ $(function(){
   //新建文章
   $("#add-artical").bind("click", function(e){
     $(".loading-panel").show();
-    $.post("phpModel/add",
+    $.post("phpModel/add.php",
     {
       tags  :  "无",
       title :　"无标题",
@@ -51,9 +51,13 @@ $(function(){
 
   //保存文章
   $("#save").bind("click", function(e){
+    if(!articalLegal()){
+      alert("你的标题或者标签不合法");
+      return;
+    }
     $(".loading-panel").show();
     var active = $(".active");
-    $.post("phpModel/save",
+    $.post("phpModel/save.php",
       {
         id : $(".active").find(".artical-id").text(),
         tags : $('#tags').val(),
@@ -75,7 +79,7 @@ $(function(){
     $(".loading-panel").show();
     var active = $(".active");
     var idcode = active.find(".artical-id").text();
-    $.post("phpModel/delete", {id : idcode}, function(data){
+    $.post("phpModel/delete.php", {id : idcode}, function(data){
       if(data.status == 'ok'){
         active.remove();
       }
@@ -88,7 +92,7 @@ $(function(){
   $("#sear-btn").bind("click", function(e){
     $(".loading-panel").show();
     if(!($.trim($("#sear-box").val()) == '')){
-      $.post("phpModel/find", {
+      $.post("phpModel/find.php", {
           query_type : "2",
           string : $("#sear-box").val()
       },function(data){
@@ -100,7 +104,7 @@ $(function(){
     }
   });
 
-
+  //预览内容
   var box = $("#editor .editor-box");
   var preview = $("#preview");
   box.bind("keyup", function(e){
