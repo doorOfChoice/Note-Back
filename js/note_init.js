@@ -27,7 +27,7 @@ function create_content(data){
 function readAllDatas(){
   $(".loading-panel").show();
 
-  $.post("phpModel/read.php", function(data){
+  $.post("phpModel/artical_read.php", function(data){
     create_content(data);
     $(".loading-panel").hide();
  });
@@ -38,7 +38,7 @@ $(function(){
   //新建文章
   $("#add-artical").bind("click", function(e){
     $(".loading-panel").show();
-    $.post("phpModel/add.php",
+    $.post("phpModel/artical_add.php",
     {
       tags  :  "无",
       title :　"无标题",
@@ -57,7 +57,7 @@ $(function(){
     }
     $(".loading-panel").show();
     var active = $(".active");
-    $.post("phpModel/save.php",
+    $.post("phpModel/artical_save.php",
       {
         id : $(".active").find(".artical-id").text(),
         tags : $('#tags').val(),
@@ -79,7 +79,7 @@ $(function(){
     $(".loading-panel").show();
     var active = $(".active");
     var idcode = active.find(".artical-id").text();
-    $.post("phpModel/delete.php", {id : idcode}, function(data){
+    $.post("phpModel/artical_delete.php", {id : idcode}, function(data){
       if(data.status == 'ok'){
         active.remove();
       }
@@ -92,7 +92,7 @@ $(function(){
   $("#sear-btn").bind("click", function(e){
     $(".loading-panel").show();
     if(!($.trim($("#sear-box").val()) == '')){
-      $.post("phpModel/find.php", {
+      $.post("phpModel/artical_find.php", {
           query_type : "2",
           string : $("#sear-box").val()
       },function(data){

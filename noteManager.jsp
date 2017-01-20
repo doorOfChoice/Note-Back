@@ -14,9 +14,9 @@
     <script type="text/javascript" src="js/markdown_dom_parser.js"></script>
     <script type="text/javascript" src="js/html2markdown.js"></script>
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
-    <script type="text/javascript" src="js/logic.js"></script>
-    <script type="text/javascript" src="js/component.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/note_logic.js"></script>
+    <script type="text/javascript" src="js/note_component.js"></script>
+    <script type="text/javascript" src="js/note_init.js"></script>
 
 
 
