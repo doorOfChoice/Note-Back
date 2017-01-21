@@ -40,6 +40,7 @@
         <div class="loading-panel">
           <img src="picture/loading.gif" class="loading-icon" alt="">
         </div>
+        
         <div class="col-md-2">
           <div class="menu">
             <div class="menu-group">
@@ -57,11 +58,8 @@
             </div>
           </div>
 
-          <div id="note-notebook" >
-          </div>
+          <div id="note-notebook" ></div>
         </div>
-
-
 
         <div class="col-md-5">
           <div id="editor">

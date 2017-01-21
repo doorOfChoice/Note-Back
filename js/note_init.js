@@ -1,3 +1,4 @@
+//验证提交文章的表单信息是否合法
 function articalLegal(){
   return $.trim($("#title").val()) != '' &&
          $.trim($("#tags").val())  != '';
@@ -34,19 +35,20 @@ function create_content(data){
   var notebook = $("#note-notebook");
   notebook.find(".artical-unit").remove();
   for(var i = data.length - 1; i >= 0; i--){
-    var unit = $("<div class='artical-unit dot-ellipsis dot-resize-update'>");
+    var unit = $("<div class='artical-unit'>");
 
     if(i == data.length - 1)
       unit.addClass("active");
 
     var id    = $("<p class='artical-id' hidden>" + data[i].id + "</p>");
     var tags  = $("<p class='artical-tags' hidden>" + data[i].tags + "</p>");
-    var title = $("<h3 class='artical-title'>").text(data[i].title);
+    var title = $("<h4 class='artical-title'>").text(data[i].title);
     var date  = $("<p class='artical-date'>").text(data[i].create_date);
     var content = $("<p class='artical-content'>").text(data[i].content);
     unit.append(id, tags, title, date, content);
     notebook.append(unit);
   }
+  $(".artical-unit").dotdotdot();
   unitClick(".artical-unit", "active");
 }
 
