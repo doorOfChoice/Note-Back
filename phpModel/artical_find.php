@@ -9,8 +9,8 @@
     $key = array(ID=>"id", TITLE=>"title", DATE=>"create_date", CONTENT=>"content");
 
     if(isset($_POST['query_type']) && isset($_POST['string'])){
-      $type = $_POST['query_type'];
-      $string = $_POST['string'];
+      $type   = $_POST['query_type']; //查询的类型
+      $string = $_POST['string'];     //查询的内容
       $mql = new MysqlOperation();
 
       $result = $mql->query("SELECT * FROM {$table} WHERE {$key[$type]} like\"%{$string}%\"");

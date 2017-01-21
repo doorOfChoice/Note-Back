@@ -6,6 +6,7 @@
      isset($_POST['password']) &&
      isset($_POST['name'])     &&
      isset($_POST['sex'] )){
+
     $username=$_POST['username'];
     $password=md5($_POST['password']);
     $name = $_POST['name'];
@@ -30,7 +31,7 @@
           //插入成功返回刚刚注册的 用户名 和 密码
           if($insert){
             echo json_encode(array(
-              "status"=>100,
+              "status"  =>100,
               "username"=>$username,
               "password"=>$password,
               "name"    =>$name,

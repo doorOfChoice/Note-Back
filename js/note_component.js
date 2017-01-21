@@ -5,11 +5,21 @@ function unitClick(comp, symb){
     parent.find(comp).removeClass(symb);
     $(this).addClass(symb);
   });
-  //将读出来的信息放进编辑框内
+  //向服务器请求要的某篇文档
   $(comp).bind("click", function(e){
-    $("#tags").val($(this).find(".artical-tags").text());
-    $("#title").val($(this).find(".artical-title").text());
-    $(".editor-box").val($(this).find(".artical-content").text());
-    $("#preview").html(marked($(this).find(".artical-content").text()));
+    $(".loading-panel").show();
+    $.post("phpModel/artical_find.php", {
+      query_type : 1,
+      string : $(this).find(".artical-id").text()
+    },function(data){
+      if(data.length != 0){
+        $("#tags").val(data[0].tags);
+        $("#title").val(data[0].title);
+        $(".editor-box").val(data[0].content);
+        $("#preview").html(marked(data[0].content));
+      }
+      $(".loading-panel").hide();
+    }, "json");
+
   });
 }

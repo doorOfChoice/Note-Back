@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="center">
-      <h1>Note-blog</h1>
+      <h1>Note-Blog</h1>
       <hr>
       <div class="input-group">
         <span class="input-group-addon">账号</span>

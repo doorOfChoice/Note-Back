@@ -17,9 +17,6 @@
     <script type="text/javascript" src="js/note_logic.js"></script>
     <script type="text/javascript" src="js/note_component.js"></script>
     <script type="text/javascript" src="js/note_init.js"></script>
-
-
-
     <title>NoteManager</title>
   </head>
   <body>
@@ -34,7 +31,7 @@
             <img src="picture/add.svg"  class="icon" id="add-artical">
           </div>
           <div class="search-group">
-            <input type="text" class="search-box" id="sear-box">
+            <input type="text" class="search-box form-control " id="sear-box">
             <button type="button" class="search-btn" id="sear-btn"></button>
           </div>
         </div>

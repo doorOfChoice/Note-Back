@@ -1,7 +1,3 @@
-var TYPE_LOGIN = 1;
-var TYPE_RESIGN = 2;
-var type = TYPE_LOGIN;
-
 //获取所有表单的信息
 function getAttributes(type){
   return {
