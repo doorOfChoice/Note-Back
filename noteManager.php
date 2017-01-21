@@ -49,7 +49,7 @@
           </div>
 
           <div class="search-group">
-            <input type="text" class="search-box form-control " id="sear-box">
+            <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
             <button type="button" class="search-btn" id="sear-btn"></button>
           </div>
         </div>
@@ -57,12 +57,12 @@
         <div id="editor" class="col-md-5 col-sm-5">
 
             <div class="input-group">
-              <input id="title" type="text" class="form-control">
+              <input id="title" type="text" class="form-control" placeholder="标题">
               <span class="input-group-addon text-right">标题</span>
             </div>
 
             <div class="input-group">
-              <input id="tags" type="text" class="form-control">
+              <input id="tags" type="text" class="form-control" placeholder="标签">
               <span class="input-group-addon">标签</span>
             </div>
 

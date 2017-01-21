@@ -138,22 +138,24 @@ $(function(){
       readAllDatas();
     }
   });
-
+  //回车执行搜索
   $("#sear-box").bind("keydown", function(e){
       if(e.keyCode == 13){
         $("#sear-btn").click();
       }
   });
-
+  //注销按钮动作
   $("#usr-logout").bind("click", function(e){
+    $(".loading-panel").show();
     $.post("phpModel/user_out.php", {username : USERNAME, out : true}, function(data){
-      console.log(data.status);
       switch(data.status){
         case 300 : location.assign("user_login.php") ;break;
         case 301 : alert("注销失败") ; break;
       }
+      $(".loading-panel").hide();
     }, "json");
   });
+
   //预览内容
   var box = $("#editor .editor-box");
   var preview = $("#preview");
