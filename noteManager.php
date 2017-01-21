@@ -40,42 +40,56 @@
         <div class="loading-panel">
           <img src="picture/loading.gif" class="loading-icon" alt="">
         </div>
+        <div class="col-md-2">
+          <div class="menu">
+            <div class="menu-group">
+              <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
+              <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
+            </div>
 
-        <div id="note-notebook" class="col-md-2 col-sm-2">
-
-          <div class="menu-group">
-            <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
-            <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
+            <div class="search-group">
+              <div class="input-group">
+                <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
+                <span class="input-group-addon ">
+                  <img class="search-btn" src="picture/search.svg" id="sear-btn"></img>
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div class="search-group">
-            <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
-            <button type="button" class="search-btn" id="sear-btn"></button>
+          <div id="note-notebook" >
           </div>
         </div>
 
-        <div id="editor" class="col-md-5 col-sm-5">
 
-            <div class="input-group">
-              <input id="title" type="text" class="form-control" placeholder="标题">
-              <span class="input-group-addon text-right">标题</span>
-            </div>
 
-            <div class="input-group">
-              <input id="tags" type="text" class="form-control" placeholder="标签">
-              <span class="input-group-addon">标签</span>
-            </div>
+        <div class="col-md-5">
+          <div id="editor">
 
-            <textarea class="editor-box" id="editor-box"></textarea>
+              <div class="input-group interval">
+                <input id="title" type="text" class="form-control " placeholder="标题">
+                <span class="input-group-addon text-right">标题</span>
+              </div>
 
-            <div class="button-group" id="buttonGroup">
-              <button type="button" class="btn btn-success" id="save">保存</button>
-              <button type="button" class="btn btn-danger" id="delete">删除</button>
-              <button type="button" class="btn btn-info" id="uppic">上传图片</button>
-            </div>
+              <div class="input-group interval">
+                <input id="tags" type="text" class="form-control" placeholder="标签">
+                <span class="input-group-addon">标签</span>
+              </div>
+
+              <textarea class="editor-box" id="editor-box"></textarea>
+
+              <div class="button-group" id="buttonGroup">
+                <button type="button" class="btn btn-success" id="save">保存</button>
+                <button type="button" class="btn btn-danger" id="delete">删除</button>
+                <button type="button" class="btn btn-info" id="uppic">上传图片</button>
+              </div>
+          </div>
         </div>
 
-        <div id="preview" class="col-md-5 col-sm-5"></div>
+        <div class="col-md-5">
+            <div id="preview" ></div>
+        </div>
+
       </div>
 
     </div>
