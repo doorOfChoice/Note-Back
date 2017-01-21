@@ -11,11 +11,11 @@ function getAttributes(type){
 }
 //检测用户名是否合法
 function check_username(usernameV){
-  var reg = new RegExp("^[a-z|A-Z|0-9]{8,20}$");
+  var reg = new RegExp("^[a-z|A-Z|0-9]{6,18}$");
   if($.trim(usernameV) == ''){
     return "账号不能为空";
   }else if(!reg.test(usernameV)){
-    return "有非法字符或者位数没在8~20之间";
+    return "有非法字符或者位数没在6~18之间";
   }else{
     return true;
   }
@@ -86,7 +86,7 @@ $(function(){
       password : $("#password").val(),
     }, function(data){
       switch(data.status){
-        case 200: alert("登录成功"); break;
+        case 200: location.assign("noteManager.php");break;
         case 201: alert("密码错误"); break;
         case 202: alert("用户不存在"); break;
       }

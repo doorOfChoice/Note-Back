@@ -47,7 +47,7 @@
         <div class="button-group">
           <button type="button" id="resign" class="btn btn-lg btn-primary btn-block" name="button">注册</button>
         </div>
-        <a href="user_login.jsp"><-返回登陆</a>
+        <a href="user_login.php"><-返回登陆</a>
     </div>
   </body>
 </html>

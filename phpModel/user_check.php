@@ -3,7 +3,7 @@
   $table = "user";
   if(isset($_POST['username'])){
     $username = $_POST['username'];
-    $mql = new MysqlOpeation();
+    $mql = new MysqlOpeation($usr_base);
 
     $result = $msq->query("SELECT * FROM {$table} WHERE username=\"{$username}\";");
     if($result){

@@ -1,13 +1,15 @@
 <?php
   require("MysqlOperation.php");
-  header("Content-Type:text/json");
-  $msql = new MysqlOperation();
-  $result = $msql->getDatas($table);
+  if(isset($_POST['username'])){
+    $username = $_POST['username'];
+    $mql = new MysqlOperation($art_base);
+    $result = $mql->getDatas($username);
 
-  $array = array();
-  while($row = $result->fetch_assoc()){
-    $array[] = $row;
+    $array = array();
+    while($row = $result->fetch_assoc()){
+      $array[] = $row;
+    }
+
+    echo json_encode($array);
   }
-
-  echo json_encode($array);
 ?>

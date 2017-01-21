@@ -1,20 +1,21 @@
 <?php
   //namespace mysql;
-  $basename = "test";
-  $table    = "artical";
+  $art_base = "artical";
+  $usr_base = "note_user";
   class MysqlOperation{
     private  $servername = "localhost",
              $username   = "root",
-             $password   = "root",
-             $dbname     = "test",
+             $password   = "zhanwubs22",
+             $dbname     = "note-base",
              $conn       = null;
     public function __construct(){
       $args = func_get_args();
       $numb = count($args);
 
       switch($numb){
-        case 0: $this->conn = new \mysqli($this->servername, $this->username, $this->password, $this->dbname);break;
-        case 3: $this->conn = new \mysqli($args[0], $args[1], $args[2], $dbname);break;
+        case 0: $this->conn = new \mysqli($this->servername, $this->username, $this->password);break;
+        case 1: $this->conn = new \mysqli($this->servername, $this->username, $this->password, $args[0]);break;
+        case 3: $this->conn = new \mysqli($args[0], $args[1], $args[2]);break;
         case 4: $this->conn = new \mysqli($args[0], $args[1], $args[2], $args[3]);break;
       }
 
@@ -35,6 +36,7 @@
       return $result;
     }
 
+    //获取特定的列
     public function getDatas($table){
       $heads = func_get_args();
       if(count($heads) <= 1)
@@ -54,4 +56,17 @@
       }
     }
   }
+    /*初始化数据库*/
+    $conn = new MysqlOperation();
+    $conn->query("CREATE DATABASE IF NOT EXISTS {$art_base}");
+    $conn->query("CREATE DATABASE IF NOT EXISTS {$usr_base}");
+    $conn->query("CREATE TABLE IF NOT EXISTS {$usr_base}.user(
+      username TEXT NOT NULL,
+      password TEXT NOT NULL,
+      name VARCHAR(100) NOT NULL,
+      sex BOOLEAN NOT NULL,
+      phone VARCHAR(30) NOT NULL,
+      intro VARCHAR(500)
+    )");
+
  ?>

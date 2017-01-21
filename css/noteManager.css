@@ -11,7 +11,7 @@ html, body{
 #note-container{
   width: 100%;
   height: 100%;
-  
+
 }
 .loading-panel{
   position: absolute;
@@ -89,20 +89,25 @@ html, body{
 
 .menu-group{
   width: 100% ;
-  height: 64px;
-  text-align: center;
-  background-color: #548B54;
+  height: 48px;
+  text-align: right;
+  background-color: white;
 
 }
 .menu-group .icon{
   cursor: pointer;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px
+  border-radius: 0%;
   background-color: inherit;
-  transition: background-color 0.5s;
+  transform: rotateZ(0deg);
+  transition: transform 0.5s;
 }
 .menu-group .icon:hover{
-  background-color: #7CCD7C;
+  transform: rotateZ(360deg);
 }
+
+
 .search-group{
   width: 100%;
   height: 32px;
@@ -134,7 +139,7 @@ html, body{
 
 #editor .editor-box{
   width: 100%;
-  height: 85%;
+  height: 80%;
   resize: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -151,6 +156,9 @@ html, body{
 #editor #buttonGroup{
   height: 10%;
   float: left;
+}
+#buttonGroup{
+    margin-top : 5px;
 }
 #preview{
   position: absolute;

@@ -1,3 +1,34 @@
+function articalLegal(){
+  return $.trim($("#title").val()) != '' &&
+         $.trim($("#tags").val())  != '';
+}
+//设定note块的点击事件
+function unitClick(comp, symb){
+  //点击后的颜色特效
+  $(comp).bind("click", function(e){
+    var parent = $(this).parent();
+    parent.find(comp).removeClass(symb);
+    $(this).addClass(symb);
+  });
+  //向服务器请求要的某篇文档
+  $(comp).bind("click", function(e){
+    $(".loading-panel").show();
+    $.post("phpModel/artical_find.php", {
+      username : USERNAME,
+      query_type : 1,
+      string : $(this).find(".artical-id").text()
+    },function(data){
+      if(data.length != 0){
+        $("#tags").val(data[0].tags);
+        $("#title").val(data[0].title);
+        $(".editor-box").val(data[0].content);
+        $("#preview").html(marked(data[0].content));
+      }
+      $(".loading-panel").hide();
+    }, "json");
+  });
+}
+
 //通过返回的JSON数据创建节点
 function create_content(data){
   var notebook = $("#note-notebook");
@@ -27,10 +58,10 @@ function create_content(data){
 function readAllDatas(){
   $(".loading-panel").show();
 
-  $.post("phpModel/artical_read.php", function(data){
+  $.post("phpModel/artical_read.php",{username : USERNAME} ,function(data){
     create_content(data);
     $(".loading-panel").hide();
- });
+ }, "json");
 }
 
 /**整个DOM加载完成后**/
@@ -40,12 +71,14 @@ $(function(){
     $(".loading-panel").show();
     $.post("phpModel/artical_add.php",
     {
+      username : USERNAME,
       tags  :  "无",
       title :　"无标题",
       content : "无内容"
     }, function(e){
       readAllDatas();
     });
+
   });
 
 
@@ -59,6 +92,7 @@ $(function(){
     var active = $(".active");
     $.post("phpModel/artical_save.php",
       {
+        username : USERNAME,
         id : $(".active").find(".artical-id").text(),
         tags : $('#tags').val(),
         title : $('#title').val(),
@@ -79,7 +113,7 @@ $(function(){
     $(".loading-panel").show();
     var active = $(".active");
     var idcode = active.find(".artical-id").text();
-    $.post("phpModel/artical_delete.php", {id : idcode}, function(data){
+    $.post("phpModel/artical_delete.php", {username : USERNAME, id : idcode}, function(data){
       if(data.status == 'ok'){
         active.remove();
       }
@@ -93,6 +127,7 @@ $(function(){
     $(".loading-panel").show();
     if(!($.trim($("#sear-box").val()) == '')){
       $.post("phpModel/artical_find.php", {
+          username : USERNAME,
           query_type : "2",
           string : $("#sear-box").val()
       },function(data){
@@ -104,11 +139,21 @@ $(function(){
     }
   });
 
+  $("#usr-logout").bind("click", function(e){
+    $.post("phpModel/user_out.php", {username : USERNAME, out : true}, function(data){
+      console.log(data.status);
+      switch(data.status){
+        case 300 : location.assign("user_login.php") ;break;
+        case 301 : alert("注销失败") ; break;
+      }
+    }, "json");
+  });
   //预览内容
   var box = $("#editor .editor-box");
   var preview = $("#preview");
   box.bind("keyup", function(e){
     preview.html(marked($(this).val()));
   });
+
   readAllDatas();
 });

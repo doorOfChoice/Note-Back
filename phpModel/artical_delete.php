@@ -1,10 +1,12 @@
 <?php
-    require("MysqlOperation.php");
+    require_once("MysqlOperation.php");
 
-    if(isset($_POST['id'])){
+    if(isset($_POST['id']) &&
+       isset($_POST['username'])){
       $id = $_POST['id'];
-      $conn = new MysqlOperation();
-      $result = $conn->query("DELETE from {$table} where id={$id}");
+      $username = $_POST['username'];
+      $conn = new MysqlOperation($art_base);
+      $result = $conn->query("DELETE from {$username} where id={$id}");
 
       $array=array();
       if($result){

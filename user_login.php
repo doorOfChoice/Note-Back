@@ -1,3 +1,18 @@
+<?php
+session_start();
+if(isset($_COOKIE['username'])){
+  $server = $_SESSION[$_COOKIE['username']];
+  if($server){
+    if($server['username'] == $_COOKIE['username'] &&
+       $server['password'] == $_COOKIE['password'] &&
+       $server['csym'] == $_COOKIE['csym']){
+        echo "<script type='text/javascript'>
+          location.assign('noteManager.php');
+        </script>";
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,6 +26,7 @@
     <title></title>
   </head>
   <body>
+
     <div class="center">
       <h1>Note-Blog</h1>
       <hr>
@@ -28,7 +44,7 @@
         <button type="button" id="login" class="btn btn-lg btn-success btn-block">登录</button>
       </div>
 
-      <a href="user_resign.jsp">还没有账号吗?点击注册</a>
+      <a href="user_resign.php">还没有账号吗?点击注册</a>
     </div>
   </body>
 </html>
