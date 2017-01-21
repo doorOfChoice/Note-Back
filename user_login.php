@@ -37,7 +37,7 @@ if(isset($_COOKIE['username'])){
 
       <div class="input-group">
         <span class="input-group-addon">密码</span>
-        <input type="password" id="password" class="form-control">
+        <input type="password" id="password" class="form-control login">
       </div>
 
       <div class="button-group">

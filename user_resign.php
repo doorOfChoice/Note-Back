@@ -38,9 +38,6 @@
         <input type="text" id="phone" class="form-control" placeholder="Phone">
         <p style="color:red" class="phone-msg"></p>
 
-        <label for="">兴趣爱好</label>
-        <input type="text" id="sex" class="form-control" placeholder="Hobby">
-
         <label for="">个人简介</label><br/>
         <textarea id="intro" class="from-control" id="intro"></textarea>
 

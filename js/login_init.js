@@ -92,6 +92,13 @@ $(function(){
       }
     }, "json");
   });
+
+  $(".login").bind("keydown", function(e){
+    if(e.keyCode == 13){
+      $("#login").click();
+    }
+  });
+
   //检测用户名
   $("#username").bind("keyup", function(e){
     var result = check_username($(this).val());

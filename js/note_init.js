@@ -139,6 +139,12 @@ $(function(){
     }
   });
 
+  $("#sear-box").bind("keydown", function(e){
+      if(e.keyCode == 13){
+        $("#sear-btn").click();
+      }
+  });
+
   $("#usr-logout").bind("click", function(e){
     $.post("phpModel/user_out.php", {username : USERNAME, out : true}, function(data){
       console.log(data.status);
