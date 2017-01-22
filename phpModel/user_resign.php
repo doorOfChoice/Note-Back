@@ -20,7 +20,7 @@
 
       if($result){
         if($result->num_rows != 0){ //判断是否已经注册过了
-          echo json_encode(array("status"=>101));
+          echo json_encode(array("status"=>101, "descrip" => "账号已被注册"));
         }else{  //加入新的用户
           $create_table = $mql->query("
           CREATE TABLE IF NOT EXISTS {$art_base}.{$username}(
@@ -50,11 +50,12 @@
                 "name"    =>$name,
                 "sex"     =>$sex,
                 "intro"   =>$intro,
-                "phone"   =>$phone
+                "phone"   =>$phone,
+                "descrip" =>"注册成功"
               ));
             }
           }else{
-            echo json_encode(array("status" => 500));
+            echo json_encode(array("status" => 500, "descrip" => "创建数据表失败"));
           }
         }
       }

@@ -82,8 +82,6 @@ $(function(){
     });
 
   });
-
-
   //保存文章
   $("#save").bind("click", function(e){
     if(!articalLegal()){
@@ -105,6 +103,7 @@ $(function(){
         active.find('.artical-title').text(data.title);
         active.find('.artical-content').text(data.content);
         active.find('.artical-tags').text(data.tags);
+        active.dotdotdot();
       }
     , "json");
   });
@@ -152,10 +151,47 @@ $(function(){
     $.post("phpModel/user_out.php", {username : USERNAME, out : true}, function(data){
       switch(data.status){
         case 300 : location.assign("user_login.php") ;break;
-        case 301 : alert("注销失败") ; break;
+        default  : alert(data.descrip);break;
       }
       $(".loading-panel").hide();
     }, "json");
+  });
+  //上传图片
+  $("#up-btn").bind("click", function(e){
+    var httpURL = $.trim($("#up-url").val());
+    if(httpURL == ""){
+      $(".loading-panel").show();
+      var data = new FormData();
+      data.append("username", USERNAME);
+      data.append("file", $("#file")[0].files[0]);
+      $.post({
+        url : "phpModel/file_upload.php",
+        type : "POST",
+        data  : data,
+        cache : false,
+        contentType : false,
+        processData : false
+      }, function(data){
+        switch(data.status){
+          case 400 : $("#editor-box").val("<img src=" + data.descrip + ">");break;
+          default : alert(data.descrip);
+        }
+        $("#editor-box").keyup();
+        $(".loading-panel").hide();
+        $(".upload-panel").hide();
+      }, "json");
+    }else{
+      $("#editor-box").val("<img src=" + httpURL + ">");
+      $("#editor-box").keyup();
+    }
+  });
+  
+  $("#uppic").bind("click", function(e){
+    $(".upload-panel").show();
+  });
+
+  $("#up-close").bind("click", function(e){
+    $(".upload-panel").hide();
   });
 
   //预览内容

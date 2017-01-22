@@ -15,13 +15,13 @@
 
       if($result){
         if($result->num_rows == 0){
-          echo json_encode(array("status"=>202));
+          echo json_encode(array("status"=>202, "descrip" => "账号不存在"));
         }else{
           //获取从数据库中得到的用户信息
           $user = $result->fetch_assoc();
 
           if($password != $user['password']){ //密码输入错误
-            echo json_encode(array("status"=>201));
+            echo json_encode(array("status"=>201, "descrip" => "密码错误"));
           }else{  //登录成功
             //随机MD5数据
             $csym = md5(rand(0, 10000));
@@ -36,9 +36,10 @@
             setcookie("csym", $csym, time() + 3600*24, "/");
 
             echo json_encode(array(
-              "status"=>200,
+              "status"  =>200,
               "username"=>$username,
-              "password"=>$password
+              "password"=>$password,
+              "descrip" =>"登录成功"
             ));
           }
         }

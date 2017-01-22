@@ -71,10 +71,7 @@ $(function(){
         intro    : msg['intro']   ,
         phone    : msg['phone']
       }, function(data){
-        switch(data.status){
-          case 100: alert("注册成功"); break;
-          case 101: alert("已经被注册"); break;
-        }
+        alert(data.descrip);
       }, "json");
     }
   });
@@ -86,12 +83,12 @@ $(function(){
       password : $("#password").val(),
     }, function(data){
       switch(data.status){
-        case 200: location.assign("noteManager.php");break;
-        case 201: alert("密码错误"); break;
-        case 202: alert("用户不存在"); break;
+        case 200 : location.assign("noteManager.php") ;break ;
+        default  : alert(data.descrip); break;
       }
     }, "json");
   });
+
 
   $(".login").bind("keydown", function(e){
     if(e.keyCode == 13){

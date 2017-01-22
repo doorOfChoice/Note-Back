@@ -8,9 +8,9 @@
     $result = $msq->query("SELECT * FROM {$table} WHERE username=\"{$username}\";");
     if($result){
       if($result->num_rows != 0)
-        echo json_encode(array("status"=>101));
+        echo json_encode(array("status"=>101, "descrip" => "已经被注册"));
       else
-        echo json_encode(array("status"=>100));
+        echo json_encode(array("status"=>100, "descrip" => "注册成功"));
     }
   }
  ?>

@@ -28,6 +28,18 @@ html, body{
   top: 40%;
   left: 45%;
 }
+
+.upload-panel{
+  position: absolute;
+  width: 50%;
+  height: auto;
+  top: 40%;
+  left : 25%;
+  text-align: center;
+  background-color: grey;
+  overflow: hidden;
+  z-index: 80;
+}
 #note-notebook{
   width: 100%;
   height: 80%;
