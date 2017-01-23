@@ -11,6 +11,7 @@ function unitClick(comp, symb){
     parent.find(comp).removeClass(symb);
     $(this).addClass(symb);
   });
+
   //向服务器请求要的某篇文档
   $(comp).bind("click", function(e){
     $(".loading-panel").show();
@@ -159,6 +160,7 @@ $(function(){
   //上传图片
   $("#up-btn").bind("click", function(e){
     var httpURL = $.trim($("#up-url").val());
+    var editText = $("#editor-box").val();
     if(httpURL == ""){
       $(".loading-panel").show();
       var data = new FormData();
@@ -173,7 +175,7 @@ $(function(){
         processData : false
       }, function(data){
         switch(data.status){
-          case 400 : $("#editor-box").val("<img src=" + data.descrip + ">");break;
+          case 400 : $("#editor-box").val(editText + "<img src=" + data.descrip + ">");break;
           default : alert(data.descrip);
         }
         $("#editor-box").keyup();
@@ -181,11 +183,11 @@ $(function(){
         $(".upload-panel").hide();
       }, "json");
     }else{
-      $("#editor-box").val("<img src=" + httpURL + ">");
+      $("#editor-box").val(editText+"<img src=" + httpURL + ">");
       $("#editor-box").keyup();
     }
   });
-  
+
   $("#uppic").bind("click", function(e){
     $(".upload-panel").show();
   });

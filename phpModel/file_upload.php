@@ -49,12 +49,13 @@
              }
              //初始化用户目录
              if(!file_exists($uploadDir)){
-               mkdir($uploadDir, 0700);
+               mkdir($uploadDir, 0777);
              }
 
              $savename = md5(time()).".{$suffix}";
              if(move_uploaded_file($temp_pos, "{$uploadDir}/{$savename}")){
-               die(json_encode(array("status" => 400, "descrip"=>"{$uploadDir}/{$savename}")));
+               $lastPos = substr("{$uploadDir}/{$savename}", 1);
+               die(json_encode(array("status" => 400, "descrip"=>$lastPos)));
              }else{
                die(json_encode(array("status" => 403, "descrip"=>"创建文件失败")));
              }
