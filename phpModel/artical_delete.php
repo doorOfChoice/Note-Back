@@ -12,11 +12,11 @@ if(isset($_POST['id']) &&
 
     if($result)
     {
-        echo json_encode("status" => "ok");
+        echo json_encode(array("status" => "ok"));
     }
     else
     {
-        echo json_encode("status" => "fail");
+        echo json_encode(array("status" => "fail"));
     }
 
 }

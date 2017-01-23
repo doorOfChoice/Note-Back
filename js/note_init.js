@@ -3,6 +3,7 @@ function articalLegal(){
   return $.trim($("#title").val()) != '' &&
          $.trim($("#tags").val())  != '';
 }
+
 //设定note块的点击事件
 function unitClick(comp, symb){
   //点击后的颜色特效
@@ -53,7 +54,6 @@ function create_content(data){
   unitClick(".artical-unit", "active");
 }
 
-
 /*
 * function : 获取数据库中所有信息
 * range：点击新建的时候和读入的时候
@@ -63,8 +63,47 @@ function readAllDatas(){
 
   $.post("phpModel/artical_read.php",{username : USERNAME} ,function(data){
     create_content(data);
-    $(".loading-panel").hide();
- }, "json");
+    if($(".active").length != 0){
+      $(".active").click();
+    }else{
+      $(".loading-panel").hide();
+    }
+
+  }, "json");
+}
+/*
+**获取textarea里光标的位置
+**返回[0]=>开始位置
+**   [1]=>终止位置
+*/
+function getCursor(ctrl){
+  ctrl.focus();
+  var posEnd = 0;
+  var posStart = 0;
+  //selectionStart/End适用于chrome safari Edge IE最新 firefox,不支持旧版
+  if(ctrl.selectionStart || ctrl.selectionStart == 0){
+    posEnd = ctrl.selectionEnd;
+    posStart = ctrl.selectionStart;
+  }
+  return [posStart, posEnd];
+}
+
+/*设置textarea里光标的位置*/
+function setCursor(ctrl, pos){
+  ctrl.focus();
+  if(ctrl.selectionStart || ctrl.selectionStart == 0){
+    ctrl.selectionStart = ctrl.selectionEnd = pos;
+  }
+}
+
+/*设置textarea光标处的内容*/
+function setCursorContent(ctrl, content){
+  var index = getCursor(ctrl)[0];
+  var textUp = $(ctrl).val().substring(0, index);
+  var textDown = $(ctrl).val().substring(index);
+  var newString = content;
+  $(ctrl).val(textUp + newString + textDown);
+  setCursor(ctrl, index + newString.length);
 }
 
 /**整个DOM加载完成后**/
@@ -95,8 +134,8 @@ $(function(){
       {
         username : USERNAME,
         id : $(".active").find(".artical-id").text(),
-        tags : $('#tags').val(),
-        title : $('#title').val(),
+        tags : $.trim($('#tags').val()),
+        title : $.trim($('#title').val()),
         content : $('#editor-box').val()
       },
       function(data){
@@ -131,7 +170,7 @@ $(function(){
       $.post("phpModel/artical_find.php", {
           username : USERNAME,
           query_type : "2",
-          string : $("#sear-box").val()
+          string : $.trim($("#sear-box").val())
       },function(data){
         create_content(data);
         $(".loading-panel").hide();
@@ -140,12 +179,14 @@ $(function(){
       readAllDatas();
     }
   });
+
   //回车执行搜索
   $("#sear-box").bind("keydown", function(e){
       if(e.keyCode == 13){
         $("#sear-btn").click();
       }
   });
+
   //注销按钮动作
   $("#usr-logout").bind("click", function(e){
     $(".loading-panel").show();
@@ -157,6 +198,7 @@ $(function(){
       $(".loading-panel").hide();
     }, "json");
   });
+
   //上传图片
   $("#up-btn").bind("click", function(e){
     var httpURL = $.trim($("#up-url").val());
@@ -175,23 +217,29 @@ $(function(){
         processData : false
       }, function(data){
         switch(data.status){
-          case 400 : $("#editor-box").val(editText + "<img src=" + data.descrip + ">");break;
-          default : alert(data.descrip);
+          case 400 : setCursorContent($("#editor-box")[0],
+                     "<img src=" + data.descrip + " class='img-responsive'>");
+                     break;
+          default  : alert(data.descrip); break;
         }
         $("#editor-box").keyup();
         $(".loading-panel").hide();
         $(".upload-panel").hide();
       }, "json");
     }else{
-      $("#editor-box").val(editText+"<img src=" + httpURL + ">");
+      setCursorContent($("#editor-box")[0],"<img src=" + httpURL + "class='img-responsive'>");
       $("#editor-box").keyup();
+      $(".upload-panel").hide();
     }
+
   });
 
+  //显示上传图片框
   $("#uppic").bind("click", function(e){
     $(".upload-panel").show();
   });
 
+  //关闭显示图片框
   $("#up-close").bind("click", function(e){
     $(".upload-panel").hide();
   });
@@ -199,9 +247,16 @@ $(function(){
   //预览内容
   var box = $("#editor .editor-box");
   var preview = $("#preview");
+
   box.bind("keyup", function(e){
     preview.html(marked($(this).val()));
   });
 
+  box.bind("keydown", function(e){
+    if(e.keyCode == 9){
+      setCursorContent(this, "    ");
+      return false;
+    }
+  });
   readAllDatas();
 });
