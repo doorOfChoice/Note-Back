@@ -1,0 +1,135 @@
+//验证提交文章的表单信息是否合法
+function articalLegal(){
+  return $.trim($("#title").val()) != '' &&
+         $.trim($("#tags").val())  != '';
+}
+
+//设定note块的点击事件
+function unitClick(comp, symb){
+  //点击后的颜色特效
+  $(comp).bind("click", function(e){
+    var parent = $(this).parent();
+    parent.find(comp).removeClass(symb);
+    $(this).addClass(symb);
+  });
+
+  //向服务器请求要的某篇文档
+  $(comp).bind("click", function(e){
+    $(".loading-panel").show();
+    $.post("phpModel/artical_find.php", {
+      username : USERNAME,
+      query_type : 1,
+      string : $(this).find(".artical-id").text()
+    },function(data){
+      if(data.length != 0){
+        $("#tags").val(data[0].tags);
+        $("#title").val(data[0].title);
+        $(".editor-box").val(data[0].content);
+        $("#preview").html(marked(data[0].content));
+      }
+      $(".loading-panel").hide();
+    }, "json");
+  });
+}
+
+//通过返回的JSON数据创建节点
+function create_content(data){
+  var notebook = $("#note-notebook");
+  notebook.find(".artical-unit").remove();
+  for(var i = data.length - 1; i >= 0; i--){
+    var unit = $("<div class='artical-unit'>");
+
+    if(i == data.length - 1)
+      unit.addClass("active");
+
+    var id    = $("<p class='artical-id' hidden>" + data[i].id + "</p>");
+    var tags  = $("<p class='artical-tags' hidden>" + data[i].tags + "</p>");
+    var title = $("<h4 class='artical-title'>").text(data[i].title);
+    var date  = $("<p class='artical-date'>").text(data[i].create_date);
+    var content = $("<p class='artical-content'>").text(data[i].content);
+    unit.append(id, tags, title, date, content);
+    notebook.append(unit);
+  }
+  $(".artical-unit").dotdotdot();
+  unitClick(".artical-unit", "active");
+}
+
+/*
+* function : 获取数据库中所有信息
+* range：点击新建的时候和读入的时候
+*/
+function readAllDatas(){
+  $(".loading-panel").show();
+
+  $.post("phpModel/artical_read.php",{username : USERNAME} ,function(data){
+    create_content(data);
+    if($(".active").length != 0){
+      $(".active").click();
+    }else{
+      $(".loading-panel").hide();
+    }
+
+  }, "json");
+}
+/*
+**获取textarea里光标的位置
+**返回[0]=>开始位置
+**   [1]=>终止位置
+*/
+function getCursor(ctrl){
+  ctrl.focus();
+  var posEnd = 0;
+  var posStart = 0;
+  //selectionStart/End适用于chrome safari Edge IE最新 firefox,不支持旧版
+  if(ctrl.selectionStart || ctrl.selectionStart == 0){
+    posEnd = ctrl.selectionEnd;
+    posStart = ctrl.selectionStart;
+  }
+  return [posStart, posEnd];
+}
+
+/*设置textarea里光标的位置*/
+function setCursor(ctrl, pos){
+  ctrl.focus();
+  if(ctrl.selectionStart || ctrl.selectionStart == 0){
+    ctrl.selectionStart = ctrl.selectionEnd = pos;
+  }
+}
+
+/*设置textarea光标处的内容*/
+function setCursorContent(ctrl, content){
+  var index = getCursor(ctrl)[0];
+  var textUp = $(ctrl).val().substring(0, index);
+  var textDown = $(ctrl).val().substring(index);
+  var newString = content;
+  $(ctrl).val(textUp + newString + textDown);
+  setCursor(ctrl, index + newString.length);
+}
+
+/*显示文件信息*/
+function showImageMessage(ctrl){
+  var file = ctrl.files[0];
+  /*
+  **返回的格式信息
+  **返回的数组格式[[fileSrc, fileSize, message], canShow, canUpLoad]
+  */
+  if(!file){
+    return [["", "","没有选择文件"], false, false];
+  }
+  var fileType = file['type'];
+  if(fileType !== "image/png" &&
+     fileType !== "image/jpg" &&
+     fileType !== "image/jpeg"&&
+     fileType !== "image/png"){
+     return [[fileSrc, fileSize,"文件格式不对"], false, false];
+  }
+
+  var fileSize = file['size'] / 1024;
+  var fileSrc = window.URL.createObjectURL(file);
+
+  if(fileSize > 1024){
+    return [[fileSrc, fileSize, "文件超过1MB"], true, false];
+  }
+
+  return [[fileSrc, fileSize, "文件符合要求"], true, true];
+}

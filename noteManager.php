@@ -30,6 +30,7 @@
     <script type="text/javascript" src="js/markdown_dom_parser.js"></script>
     <script type="text/javascript" src="js/html2markdown.js"></script>
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
+    <script type="text/javascript" src="js/note_logic.js"></script>
     <script type="text/javascript" src="js/note_init.js"></script>
 
     <title>NoteManager</title>
@@ -41,13 +42,15 @@
           <img src="picture/loading.gif" class="loading-icon" alt="">
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2" style="background-color:#9C9C9C; height:100%">
           <div class="menu">
-            <div class="menu-group">
+            <div class="menu-group interval">
               <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
               <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
             </div>
-            <div class="search-group">
+          </div>
+          <div id="note-notebook" >
+            <div class="search-group interval">
               <div class="input-group">
                 <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
                 <span class="input-group-addon ">
@@ -56,11 +59,10 @@
               </div>
             </div>
           </div>
-          <div id="note-notebook" ></div>
         </div>
 
-        <div class="col-md-5">
-          <div class="upload-panel" hidden>
+        <div class="col-md-5" style="background-color:#363636; height:100%">
+          <div class="upload-panel" id="up-panel" hidden>
             <div class="input-group interval">
               <span class="input-group-addon">URL连接</span>
               <input type="text" id="up-url" class="form-control" placeholder="URL">
@@ -69,6 +71,12 @@
             <form id="up-image" enctype="multipart/form-data">
               <input type="file" id="file" name="file"  value="">
             </form>
+
+            <div class="up-show">
+              <img id="up-show-image" alt="no data" style="width:50%;">
+              <p id="up-show-size"></p>
+            </div>
+
             <div class="button-group">
                 <button type="button" id="up-btn" class="btn btn-primary " name="button">上传</button>
                 <button type="button" id="up-close" class="btn btn-danger " name="button">关闭</button>
@@ -77,8 +85,8 @@
           </div>
 
           <div id="editor">
-              <div class="input-group interval">
-                <input id="title" type="text" class="form-control " placeholder="标题">
+              <div class="input-group interval" style="margin-top:5px">
+                <input id="title" type="text" class="form-control" placeholder="标题">
                 <span class="input-group-addon text-right">标题</span>
               </div>
 
@@ -97,7 +105,7 @@
           </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-5" style="background-color:#1C1C1C; height:100%">
             <div id="preview" ></div>
         </div>
 

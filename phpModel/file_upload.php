@@ -10,8 +10,7 @@
     return $suffix === "gif" ||
            $suffix === "jpg" ||
            $suffix === "png" ||
-           $suffix === "jpeg"||
-           $suffix === "svg" ;
+           $suffix === "jpeg" ;
   }
   //检测大小是否超过1MB
   function isSize($size){
