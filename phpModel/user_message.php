@@ -11,16 +11,19 @@
            $server['password'] == $_COOKIE['password'] &&
            $server['csym'] == $_COOKIE['csym'])
         {
-            if(isset($_POST['username']))
-            {
-                $mql = new MysqlOperation($usr_base);
-                $username = $_POST['username'];
-                $result = $mql->query("SELECT name,sex,birthday,phone,intro FROM
-                          {$table} where username=\"{$username}\"");
 
-                if($result && $result->num_rows != 0){
-                    echo json_encode($result->fetch_assoc());
-                }
+            $mql = new MysqlOperation($usr_base);
+            $username = $server['username'];
+            $result = $mql->query("SELECT name,sex,birthday,phone,intro,head_address
+                                   FROM {$table} where username=\"{$username}\"");
+
+            if($result && $result->num_rows != 0)
+            {
+                echo json_encode(array("status"=>200, "data"=>$result->fetch_assoc(), "descrip"=>"获取成功"));
+            }
+            else
+            {
+                echo json_encode(array("status"=>201, "descrip"=>"获取数据库失败"));
             }
         }
     }

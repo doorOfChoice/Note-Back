@@ -28,7 +28,8 @@ if(!empty($_POST['username']) &&
                 echo json_encode(array("status"=>101, "descrip" => "账号已被注册"));
             }
         else
-        {  //加入新的用户
+        {
+            //加入新的用户
             $create_table = $mql->query("
             CREATE TABLE IF NOT EXISTS {$art_base}.{$username}(
             id INT NOT NULL AUTO_INCREMENT,
@@ -43,10 +44,12 @@ if(!empty($_POST['username']) &&
 
             if($create_table)
             {
+                $default_head  = 'picture/head/'. (!$sex ? "default-man.jpg" : "default-woman.jpg");
+                
                 $insert_member = $mql->query("
-                INSERT INTO {$table}(username, password, name, sex, birthday, intro, phone)
+                INSERT INTO {$table}(username, password, name, sex, birthday, intro, phone, head_address)
                 VALUES(\"{$username}\", \"{$password}\", \"{$name}\",
-                {$sex}, \"{$birthday}\", \"{$intro}\", \"{$phone}\");
+                {$sex}, \"{$birthday}\", \"{$intro}\", \"{$phone}\", \"{$default_head}\");
                 ");
 
                 //插入成功返回刚刚注册的 用户名 和 密码
@@ -54,8 +57,6 @@ if(!empty($_POST['username']) &&
                 {
                     echo json_encode(array(
                       "status"  => 100,
-                      "username"=> $username,
-                      "password"=> $password,
                       "name"    => $name,
                       "sex"     => $sex,
                       "birthday"=> $birthday,

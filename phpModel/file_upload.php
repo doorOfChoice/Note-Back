@@ -30,12 +30,12 @@
            //403=>文件创建失败
            //410=>其他错误
            ]*/
-           if(!isset($_POST['username']) || $_FILES['file']['error'] > 0){
+           if($_FILES['file']['error'] > 0){
              die(json_encode(array("status" => 410, "descrip"=>$_FILES['file']['error'])));
            }else{
              $temp_pos  = $_FILES['file']['tmp_name'];
              $filename  = $_FILES['file']['name'];
-             $username  = $_POST['username'];
+             $username  = $server['username'];
              $uploadDir = "../userimage/{$username}";
              $suffix    = getSuffix($filename);
 

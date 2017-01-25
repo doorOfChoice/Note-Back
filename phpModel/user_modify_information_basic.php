@@ -12,8 +12,7 @@ if(isset($_COOKIE['username'])){
          $server['csym'] == $_COOKIE['csym'])
       {
 
-          if(isset($_POST['username'])  &&
-             !empty($_POST['name'])     &&
+          if(!empty($_POST['name'])     &&
              !empty($_POST['sex'])      &&
              !empty($_POST['intro'])    &&
              !empty($_POST['phone'])    &&
@@ -23,11 +22,20 @@ if(isset($_COOKIE['username'])){
               $result = $mql->query("UPDATE {$table} SET
               name=\"{$_POST['name']}\", sex={$_POST['sex']},
               intro=\"{$_POST['intro']}\"  , phone=\"{$_POST['phone']}\",
-              birthday=\"{$_POST['birthday']}\" where username=\"{$_POST['username']}\"");
+              birthday=\"{$_POST['birthday']}\" where username=\"{$server['username']}\"");
 
-              if($result){
-                echo json_encode(array("status" => 200));
+              if($result)
+              {
+                echo json_encode(array("status" => 200, "descrip"=>"修改成功"));
               }
+              else
+              {
+                echo json_encode(array("status" => 201, "descrip"=>"数据库更新失败"));
+              }
+          }
+          else
+          {
+            echo json_encode(array("status" => 202, "descrip"=>"参数不正确"));
           }
       }
   }

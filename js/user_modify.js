@@ -2,8 +2,8 @@
 function printUserMessage(username){
   $(".loading-panel").show();
   $.post("phpModel/user_message.php", {username : username}, function(data){
-    if(data != null)
-      setUserMessage(data);
+    if(data.status && data.status == 200)
+      setUserMessage(data.data);
     $(".loading-panel").hide();
   }, "json");
 }
@@ -15,6 +15,7 @@ function setUserMessage(message){
     $("#phone").val(message.phone);
     $("#birthday").val(message.birthday);
     $("#intro").val(message.intro);
+    $("#head").attr("src", message.head_address);
   }
 }
 $(function(){
@@ -80,10 +81,11 @@ $(function(){
            newPassword : newPassword,
            newPasswordAgain : newPasswordAgain
          }, function(data){
-           if(data.status == 200){
-             alert("修改密码成功!");
+           if(data.status && data.status == 200){
+             alert(data.descrip);
              window.location.reload();
            }
+           alert(data.descrip);
            $(".loading-panel").hide();
          }, "json");
     }else{

@@ -53,7 +53,7 @@
           <div class="user-message" >
             <h1>基本资料</h1>
             <div class="col-md-2 text-center interval">
-              <img src="userimage\kankanba\83decd5278b958b9d19448384f5a5a28.jpg" class="circle center interval img-64" alt="head">
+              <img src="" class="circle center interval img-64" id="head" alt="head">
               <div class="button-group ">
                 <button type="button" class="btn btn-default">修改头像</button>
               </div>
