@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once("MysqlOperation.php");
 $table = "user";
 /*[100 注册成功] [101 用户已经存在] [500]数据库错误*/
@@ -44,8 +44,8 @@ if(!empty($_POST['username']) &&
 
             if($create_table)
             {
-                $default_head  = 'picture/head/'. (!$sex ? "default-man.jpg" : "default-woman.jpg");
-                
+                $default_head  = 'picture/head/'. (($sex === 'false') ? 'default-man.jpg' : 'default-woman.jpg');
+
                 $insert_member = $mql->query("
                 INSERT INTO {$table}(username, password, name, sex, birthday, intro, phone, head_address)
                 VALUES(\"{$username}\", \"{$password}\", \"{$name}\",
@@ -62,6 +62,7 @@ if(!empty($_POST['username']) &&
                       "birthday"=> $birthday,
                       "intro"   => $intro,
                       "phone"   => $phone,
+
                       "descrip" => "注册成功"
                     ));
                 }
