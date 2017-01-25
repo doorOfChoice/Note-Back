@@ -2,15 +2,17 @@
 require_once("MysqlOperation.php");
 $table = "user";
 /*[100 注册成功] [101 用户已经存在] [500]数据库错误*/
-if(isset($_POST['username']) &&
-   isset($_POST['password']) &&
-   isset($_POST['name'])     &&
-   isset($_POST['sex'] ))
+if(!empty($_POST['username']) &&
+   !empty($_POST['password']) &&
+   !empty($_POST['name'])     &&
+   !empty($_POST['sex'] )    &&
+   !empty($_POST['birthday']))
 {
     $sex  = $_POST['sex'] ;
     $name = $_POST['name'];
     $intro = $_POST['intro'];
     $phone = $_POST['phone'];
+    $birthday = $_POST['birthday'];
     $username=$_POST['username'];
     $password=md5($_POST['password']);
 
@@ -32,6 +34,7 @@ if(isset($_POST['username']) &&
             id INT NOT NULL AUTO_INCREMENT,
             create_date DATETIME NOT NULL,
             change_date DATETIME NOT NULL,
+            pageviews INT NOT NULL DEFAULT 0,
             title VARCHAR(100) NOT NULL,
             tags VARCHAR(100) NOT NULL,
             content MEDIUMTEXT,
@@ -41,25 +44,26 @@ if(isset($_POST['username']) &&
             if($create_table)
             {
                 $insert_member = $mql->query("
-                INSERT INTO {$table}(username, password, name, sex, intro, phone)
-                VALUES(\"{$username}\", \"{$password}\", \"{$name}\", {$sex},
-                \"{$intro}\", \"{$phone}\");
+                INSERT INTO {$table}(username, password, name, sex, birthday, intro, phone)
+                VALUES(\"{$username}\", \"{$password}\", \"{$name}\",
+                {$sex}, \"{$birthday}\", \"{$intro}\", \"{$phone}\");
                 ");
 
-            //插入成功返回刚刚注册的 用户名 和 密码
-            if($insert_member)
-            {
-                echo json_encode(array(
-                  "status"  =>100,
-                  "username"=> $username,
-                  "password"=> $password,
-                  "name"    => $name,
-                  "sex"     => $sex,
-                  "intro"   => $intro,
-                  "phone"   => $phone,
-                  "descrip" => "注册成功"
-                ));
-            }
+                //插入成功返回刚刚注册的 用户名 和 密码
+                if($insert_member)
+                {
+                    echo json_encode(array(
+                      "status"  => 100,
+                      "username"=> $username,
+                      "password"=> $password,
+                      "name"    => $name,
+                      "sex"     => $sex,
+                      "birthday"=> $birthday,
+                      "intro"   => $intro,
+                      "phone"   => $phone,
+                      "descrip" => "注册成功"
+                    ));
+                }
           }
           else
           {

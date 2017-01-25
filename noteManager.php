@@ -1,17 +1,17 @@
 <?php
   session_start();
-  if(isset($_COOKIE['username'])){
+  $login = false;
+  if(isset($_COOKIE['username']))
+  {
     $server = $_SESSION[$_COOKIE['username']];
     if($server){
       if($server['username'] == $_COOKIE['username'] &&
          $server['password'] == $_COOKIE['password'] &&
-         $server['csym'] == $_COOKIE['csym']){
+         $server['csym'] == $_COOKIE['csym'])
+      {
+         $login = true;
          echo "<script> USERNAME = \"{$server['username']}\"; </script>";
       }
-    }else{
-      echo "<script type='text/javascript'>
-        location.assign('user_login.php')
-      </script>";
     }
   }
 ?>
@@ -20,6 +20,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <?php
+       /*没有登录状态实行强制跳转
+        *跳转到登录界面
+        */
+        if(!$login){
+          echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"0;url=user_login.php\">";
+        }
+    ?>
 
     <link rel="stylesheet" href="bs/css/bootstrap.min.css">
     <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
@@ -32,25 +41,27 @@
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="js/note_logic.js"></script>
     <script type="text/javascript" src="js/note_init.js"></script>
-
     <title>NoteManager</title>
   </head>
   <body>
-    <div id="note-container" class="container-fluid">
+    <div class="loading-panel" hidden>
+      <img src="picture/loading.gif" class="loading-icon" alt="">
+    </div>
+    <div id="user">
+      <input type="text" class="form-control" name="" value="">
+    </div>
+    <div id="note-container" class="container">
       <div class="row">
-        <div class="loading-panel">
-          <img src="picture/loading.gif" class="loading-icon" alt="">
-        </div>
-
-        <div class="col-md-2" style="background-color:#9C9C9C; height:100%">
+        <div class="col-md-2" style="background-color:white; height:100%; padding:0px">
           <div class="menu">
             <div class="menu-group interval">
               <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
-              <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
+              <a href="user_modify.php"><img src="picture/user.svg" class="icon" id="usr-message" alt="用户信息" target="_blank"></a>
+             <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
             </div>
           </div>
           <div id="note-notebook" >
-            <div class="search-group interval">
+            <div class="search-group">
               <div class="input-group">
                 <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
                 <span class="input-group-addon ">
@@ -58,6 +69,7 @@
                 </span>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -85,19 +97,19 @@
           </div>
 
           <div id="editor">
-              <div class="input-group interval" style="margin-top:5px">
+              <div class="input-group input-group-title interval" >
                 <input id="title" type="text" class="form-control" placeholder="标题">
                 <span class="input-group-addon text-right">标题</span>
               </div>
 
-              <div class="input-group interval">
+              <div class="input-group input-group-tags interval" >
                 <input id="tags" type="text" class="form-control" placeholder="标签">
                 <span class="input-group-addon">标签</span>
               </div>
 
-              <textarea class="editor-box" id="editor-box"></textarea>
+              <textarea class="editor-box interval" id="editor-box"></textarea>
 
-              <div class="button-group" id="buttonGroup">
+              <div  id="buttonGroup" >
                 <button type="button" class="btn btn-success" id="save">保存</button>
                 <button type="button" class="btn btn-danger" id="delete">删除</button>
                 <button type="button" class="btn btn-info" id="uppic">上传图片</button>

@@ -47,7 +47,6 @@ if(isset($_POST['username']) &&
                     echo json_encode(array(
                       "status"  =>200,
                       "username"=>$username,
-                      "password"=>$password,
                       "descrip" =>"登录成功"
                     ));
                }

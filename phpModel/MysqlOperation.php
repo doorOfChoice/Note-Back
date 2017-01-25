@@ -74,7 +74,9 @@ $conn->query("CREATE TABLE IF NOT EXISTS {$usr_base}.user(
               password TEXT NOT NULL,
               name VARCHAR(100) NOT NULL,
               sex BOOLEAN NOT NULL,
+              birthday DATE NOT NULL,
               phone VARCHAR(30) NOT NULL,
-              intro VARCHAR(500)
+              intro VARCHAR(500),
+              head_address TEXT
               )");
 ?>

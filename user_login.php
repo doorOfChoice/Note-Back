@@ -22,11 +22,11 @@ if(isset($_COOKIE['username'])){
       <link rel="stylesheet" href="css/user_login.css">
       <script type="text/javascript" src="js/jquery.min.js"></script>
       <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="js/login_init.js"></script>
+      <script type="text/javascript" src="js/user_logic.js"></script>
+      <script type="text/javascript" src="js/user_init.js"></script>
     <title></title>
   </head>
-  <body>
-
+  <body style="background-color:#F0F8FF;">
     <div class="center">
       <h1>Note-Blog</h1>
       <hr>
