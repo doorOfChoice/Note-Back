@@ -2,7 +2,9 @@
   height: auto;
   font-family: "Microsoft Yahei";
 }
-
+img{
+  max-width: 100%;
+}
 html, body{
   width: 100%;
   height: 100%;
@@ -10,11 +12,41 @@ html, body{
   padding: 0px;
   background-color: #363636;
 }
+::-webkit-scrollbar{
+  width: 10px;
+}
+input[name='editor-input']{
+  width: 100%;
+  border: none;
+  background: none;
+  color:#B5B5B5;
+  border-bottom: 1px solid #696969;
+  box-shadow: none;
+}
+
+textarea[name='editor-box']{
+  border: none;
+  color:#B5B5B5;
+  background-color: rgba(255, 0, 0, 0);
+}
+
+textarea[name='editor-box']::-webkit-scrollbar{
+  border-radius: 20px;
+  background-color: grey;
+}
+textarea[name='editor-box']::-webkit-scrollbar-track {
+  border-radius: 20px;
+	background-color: #4F4F4F;
+} /* 滚动条的滑轨背景颜色 */
+
+textarea[name='editor-box']::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+		  background-color: rgba(0, 0, 0, 0.5);
+} /* 滑块颜色 */
 
 #note-container{
   width: 100%;
   height: 100%;
-
 }
 #user{
   position: absolute;
@@ -61,10 +93,19 @@ html, body{
 #note-notebook{
   width: 100%;
   height: calc(100% - 32px);
-  border-top: 2px solid #828282;
   border-right: none;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+
+#note-notebook::-webkit-scrollbar-track{
+  background-color: inherit;
+}
+
+#note-notebook::-webkit-scrollbar-thumb{
+  border-radius: 20px;
+  background-color: rgba(54, 54, 54, 0.8);
 }
 .menu{
   width: 100%;
@@ -97,10 +138,10 @@ html, body{
 }
 
 .active{
-  color:black;
-  border: 3px solid grey;
-
+  color:white;
+  background-color: black;
 }
+
 .artical-unit .artical-title{
   height: auto;
   margin: 0px;
@@ -148,6 +189,7 @@ html, body{
   display: block;
 }
 .search-btn{
+  max-width: none;
   cursor: pointer;
   height: 16px;
 }
@@ -192,9 +234,14 @@ html, body{
 
 #preview{
   width: 100%;
-  height: 99%;
+  height: 100%;
   color: #B9D3EE;
   word-wrap: break-word;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+#preview::-webkit-scrollbar-thumb{
+  border-radius: 20px;
+  background-color: #696969;
 }

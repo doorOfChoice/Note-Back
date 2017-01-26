@@ -65,7 +65,7 @@
               <div class="input-group">
                 <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
                 <span class="input-group-addon ">
-                  <img class="search-btn" src="picture/search.svg" id="sear-btn"></img>
+                  <img class="search-btn" src="picture/search.svg"  id="sear-btn"></img>
                 </span>
               </div>
             </div>
@@ -97,17 +97,15 @@
           </div>
 
           <div id="editor">
-              <div class="input-group input-group-title interval" >
-                <input id="title" type="text" class="form-control" placeholder="标题">
-                <span class="input-group-addon text-right">标题</span>
-              </div>
 
-              <div class="input-group input-group-tags interval" >
-                <input id="tags" type="text" class="form-control" placeholder="标签">
-                <span class="input-group-addon">标签</span>
-              </div>
+              <input id="title" type="text" name="editor-input" class="form-control interval" placeholder="标题">
+              <!--<span class="input-group-addon text-right">标题</span>-->
 
-              <textarea class="editor-box interval" id="editor-box"></textarea>
+              <input id="tags" type="text" name="editor-input" class="form-control interval" placeholder="标签">
+              <!--<span class="input-group-addon">标签</span>-->
+
+
+              <textarea class="editor-box interval" name="editor-box" id="editor-box"></textarea>
 
               <div  id="buttonGroup" >
                 <button type="button" class="btn btn-success" id="save">保存</button>

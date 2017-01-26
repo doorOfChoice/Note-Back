@@ -46,6 +46,7 @@
           <ul class="nav nav-pills nav-stacked" id="nav-message">
             <li class="active" id="message-basement"><a href="#">修改个人信息</a></li>
             <li id="message-password"><a href="#">修改密码</a></li>
+            <li><a href="noteManager.php">返回后台</a></li>
           </ul>
         </div>
 
