@@ -12,9 +12,11 @@ html, body{
   padding: 0px;
   background-color: #363636;
 }
+
 ::-webkit-scrollbar{
-  width: 10px;
+  width: 5px;
 }
+
 input[name='editor-input']{
   width: 100%;
   border: none;
@@ -92,7 +94,7 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 }
 #note-notebook{
   width: 100%;
-  height: calc(100% - 32px);
+  height: calc(100% - 70px);
   border-right: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -184,8 +186,8 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 }
 .search-group{
   width: 100%;
-  height: 36px;
-  margin: 3px 0px 3px 0px;
+  height: 32px;
+  margin: 3px 0px ;
   display: block;
 }
 .search-btn{
@@ -203,7 +205,7 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 
 #editor .editor-box{
   width: 100%;
-  height: 80%;
+  height: calc(100% - 132px);
   resize: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -211,13 +213,10 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 }
 
 #buttonGroup{
-  height: calc(20% - 84px);
-  vertical-align: middle;
+  height: 48px;
 }
 #buttonGroup button{
-  height: 100%;
-  max-height: 40px;
-  min-height: 32px;
+  height: 32px;
 }
 .input-group-title{
   margin-top: 5px;
@@ -236,6 +235,7 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
   color: #B9D3EE;
+  padding-top: 5px;
   word-wrap: break-word;
   overflow-x: hidden;
   overflow-y: auto;

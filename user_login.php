@@ -16,7 +16,12 @@ if(isset($_COOKIE['username'])){
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="generator" content="Atom">
+      <meta name="author" content="dawndevil, 351987551@qq.com">
+      <meta name="keywords" content="blog, 笔记本, notebook">
+      <meta name="description" content="简易的笔记本+博客后台">
       <link rel="stylesheet" href="bs/css/bootstrap.min.css">
       <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="css/user_login.css">
@@ -24,7 +29,7 @@ if(isset($_COOKIE['username'])){
       <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
       <script type="text/javascript" src="js/user_logic.js"></script>
       <script type="text/javascript" src="js/user_init.js"></script>
-    <title></title>
+      <title>Note-Blog</title>
   </head>
   <body style="background-color:#F0F8FF;">
     <div class="center">

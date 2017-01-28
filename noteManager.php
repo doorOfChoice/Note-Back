@@ -20,7 +20,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="robots" content="none">
     <?php
        /*没有登录状态实行强制跳转
         *跳转到登录界面
@@ -41,18 +41,19 @@
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="js/note_logic.js"></script>
     <script type="text/javascript" src="js/note_init.js"></script>
+
+    <script type="text/javascript">
+
+    </script>
     <title>NoteManager</title>
   </head>
   <body>
     <div class="loading-panel" hidden>
       <img src="picture/loading.gif" class="loading-icon" alt="">
     </div>
-    <div id="user">
-      <input type="text" class="form-control" name="" value="">
-    </div>
     <div id="note-container" class="container">
       <div class="row">
-        <div class="col-md-2" style="background-color:white; height:100%; padding:0px">
+        <div class="col-md-2 col-sm-4 col-xs-4" style="background-color:white; height:100%; padding:0px" id="row-notebook">
           <div class="menu">
             <div class="menu-group interval">
               <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
@@ -60,20 +61,20 @@
              <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
             </div>
           </div>
-          <div id="note-notebook" >
-            <div class="search-group">
-              <div class="input-group">
-                <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
-                <span class="input-group-addon ">
-                  <img class="search-btn" src="picture/search.svg"  id="sear-btn"></img>
-                </span>
-              </div>
+          <div class="search-group">
+            <div class="input-group">
+              <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
+              <span class="input-group-addon ">
+                <img class="search-btn" src="picture/search.svg"  id="sear-btn"></img>
+              </span>
             </div>
+          </div>
+          <div id="note-notebook" >
 
           </div>
         </div>
 
-        <div class="col-md-5" style="background-color:#363636; height:100%">
+        <div class="col-md-5 col-sm-8 col-xs-8" style="background-color:#363636; height:100%" id="row-editor">
           <div class="upload-panel" id="up-panel" hidden>
             <div class="input-group interval">
               <span class="input-group-addon">URL连接</span>
@@ -115,7 +116,7 @@
           </div>
         </div>
 
-        <div class="col-md-5" style="background-color:#1C1C1C; height:100%">
+        <div class="col-md-5 col-sm-12 col-xs-12" style="background-color:#1C1C1C; height:100%" id="row-preview">
             <div id="preview" ></div>
         </div>
 

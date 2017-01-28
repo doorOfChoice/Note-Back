@@ -5,7 +5,6 @@ $(function(){
     $(".loading-panel").show();
     $.post("phpModel/artical_add.php",
     {
-      username : USERNAME,
       tags  :  "无",
       title :　"无标题",
       content : "无内容"
@@ -20,11 +19,11 @@ $(function(){
       alert("你的标题或者标签不合法");
       return;
     }
+
     $(".loading-panel").show();
     var active = $(".active");
     $.post("phpModel/artical_save.php",
       {
-        username : USERNAME,
         id : $(".active").find(".artical-id").text(),
         tags : $.trim($('#tags').val()),
         title : $.trim($('#title').val()),
@@ -46,11 +45,18 @@ $(function(){
     $(".loading-panel").show();
     var active = $(".active");
     var idcode = active.find(".artical-id").text();
-    $.post("phpModel/artical_delete.php", {username : USERNAME, id : idcode}, function(data){
+    $.post("phpModel/artical_delete.php", {id : idcode}, function(data){
       if(data.status == 'ok'){
         active.remove();
+
+        var children = $(".artical-unit");
+        if(children.length !== 0){
+          $(children[0]).click();
+        }else{
+          $(".loading-panel").hide();
+        }
       }
-      $(".loading-panel").hide();
+
     }, "json");
   });
 
@@ -60,7 +66,6 @@ $(function(){
     $(".loading-panel").show();
     if(!($.trim($("#sear-box").val()) == '')){
       $.post("phpModel/artical_find.php", {
-          username : USERNAME,
           query_type : "2",
           string : $.trim($("#sear-box").val())
       },function(data){
@@ -82,7 +87,7 @@ $(function(){
   //注销按钮动作
   $("#usr-logout").bind("click", function(e){
     $(".loading-panel").show();
-    $.post("phpModel/user_out.php", {username : USERNAME, out : true}, function(data){
+    $.post("phpModel/user_out.php", {out : true}, function(data){
       switch(data.status){
         case 300 : location.assign("user_login.php") ;break;
         default  : alert(data.descrip);break;
@@ -95,6 +100,11 @@ $(function(){
   $("#up-btn").bind("click", function(e){
     var httpURL = $.trim($("#up-url").val());
     var editText = $("#editor-box").val();
+    //检测是否选择了文章
+    if($(".active").length === 0){
+      alert("请选择一篇文章.");
+      return;
+    }
 
     if(httpURL == ""){
       var status = showImageMessage($("#file")[0]);
@@ -104,7 +114,6 @@ $(function(){
       }else{
         $(".loading-panel").show();
         var data = new FormData();
-        data.append("username", USERNAME);
         data.append("file", $("#file")[0].files[0]);
         $.post({
           url : "phpModel/file_upload.php",
@@ -116,7 +125,7 @@ $(function(){
         }, function(data){
           switch(data.status){
             case 400 : setCursorContent($("#editor-box")[0],
-                       "<img src=" + data.descrip + " class='img-responsive'>");
+                       "![](" + data.descrip + ")");
                        break;
             default  : alert(data.descrip); break;
           }
@@ -126,12 +135,13 @@ $(function(){
         }, "json");
       }
     }else{
-      setCursorContent($("#editor-box")[0],"<img src=" + httpURL + "class='img-responsive'>");
+      setCursorContent($("#editor-box")[0],"![](" + httpURL + ")");
       $("#editor-box").keyup();
       $(".upload-panel").hide();
     }
 
   });
+
   //文件被选择后显示缩略图
   $("#file").bind("change", function(e){
     var status = showImageMessage(this);

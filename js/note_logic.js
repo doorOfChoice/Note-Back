@@ -17,7 +17,6 @@ function unitClick(comp, symb){
   $(comp).bind("click", function(e){
     $(".loading-panel").show();
     $.post("phpModel/artical_find.php", {
-      username : USERNAME,
       query_type : 1,
       string : $(this).find(".artical-id").text()
     },function(data){
@@ -61,7 +60,7 @@ function create_content(data){
 function readAllDatas(){
   $(".loading-panel").show();
 
-  $.post("phpModel/artical_read.php",{username : USERNAME} ,function(data){
+  $.post("phpModel/artical_read.php" ,function(data){
     create_content(data);
     if($(".active").length != 0){
       $(".active").click();

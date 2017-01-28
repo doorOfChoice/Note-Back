@@ -19,6 +19,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="robots" content="none">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
         if(!$login){
           echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"0; url=user_login.php\"";
@@ -29,7 +31,7 @@
     <link rel="stylesheet" href="css/user_modify.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bs/js/bootstrap.js"></script>
-    <script type="text/javascript" src="laydate/laydate.js"></script>
+    <script type="text/javascript" src="js/laydate/laydate.js"></script>
     <script type="text/javascript" src="js/user_logic.js"></script>
     <script type="text/javascript" src="js/user_modify.js"></script>
     <title>Note-Blog修改用户信息</title>
@@ -42,7 +44,7 @@
 
     <div class="container" >
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col-xs-12">
           <ul class="nav nav-pills nav-stacked" id="nav-message">
             <li class="active" id="message-basement"><a href="#">修改个人信息</a></li>
             <li id="message-password"><a href="#">修改密码</a></li>
@@ -50,16 +52,16 @@
           </ul>
         </div>
 
-        <div class="col-md-10">
+        <div class="col-md-10 col-xs-12">
           <div class="user-message" >
             <h1>基本资料</h1>
-            <div class="col-md-2 text-center interval">
+            <div class="col-xs-12 col-md-2 text-center interval">
               <img src="" class="circle center interval img-64" id="head" alt="head">
               <div class="button-group ">
                 <button type="button" class="btn btn-default">修改头像</button>
               </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-xs-12 col-md-10">
               <div class="input-group input-group-name interval">
                 <label for="">姓名</label>
                 <input type="text" class="form-control" id="name">
