@@ -1,5 +1,6 @@
 ﻿<?php
 require_once("MysqlOperation.php");
+require_once("StringOperation.php");
 $table = "user";
 /*[100 注册成功] [101 用户已经存在] [500]数据库错误*/
 if(!empty($_POST['username']) &&
@@ -8,13 +9,13 @@ if(!empty($_POST['username']) &&
    !empty($_POST['sex'] )    &&
    !empty($_POST['birthday']))
 {
-    $sex  = $_POST['sex'] ;
-    $name = $_POST['name'];
-    $intro = $_POST['intro'];
-    $phone = $_POST['phone'];
+    $sex      = $_POST['sex'] ;
+    $name     = str_convert($_POST['name']);
+    $intro    = str_convert($_POST['intro']);
+    $phone    = $_POST['phone'];
     $birthday = $_POST['birthday'];
-    $username=$_POST['username'];
-    $password=md5($_POST['password']);
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
 
     $mql = new MysqlOperation($usr_base);
     if($mql)

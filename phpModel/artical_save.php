@@ -1,6 +1,7 @@
 <?php
 session_start();
-require("MysqlOperation.php");
+require_once("MysqlOperation.php");
+require_once("StringOperation.php");
 if(isset($_COOKIE['username'])){
     $server = $_SESSION[$_COOKIE['username']];
     if($server){
@@ -9,17 +10,18 @@ if(isset($_COOKIE['username'])){
            $server['csym'] == $_COOKIE['csym'])
         {
             if(isset($_POST['id'])      &&
-               isset($_POST["tags"])    &&
-               isset($_POST["title"])   &&
-               isset($_POST["content"])
+               isset($_POST['tags'])    &&
+               isset($_POST['title'])   &&
+               isset($_POST['content'])
               )
             {
 
                 $id = $_POST['id'];
-                $tags = $_POST['tags'];
-                $title = $_POST['title'];
-                $content = $_POST['content'];
                 $username = $server['username'];
+                $tags = str_convert($_POST['tags']);
+                $title = str_convert($_POST['title']);
+                $content = str_convert($_POST['content']);
+
 
                 $mql    = new MysqlOperation($art_base);
                 $result = $mql->query("

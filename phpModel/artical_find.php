@@ -24,7 +24,7 @@ if(isset($_COOKIE['username'])){
             {
                 $type     = $_POST['query_type']; //查询的类型
                 $string   = $_POST['string'];     //查询的内容
-                $username = $server['username'];
+                $username = $server['username'];  //用户名
 
                 $mql    = new MysqlOperation($art_base);
                 $result = $mql->query("SELECT * FROM {$username} WHERE {$key[$type]} like \"%{$string}%\"");

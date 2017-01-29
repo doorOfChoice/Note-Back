@@ -2,6 +2,7 @@
 session_start();
 
 require_once("MysqlOperation.php");
+require_once("StringOperation.php");
 $table = "user";
 
 if(isset($_COOKIE['username'])){
@@ -18,6 +19,9 @@ if(isset($_COOKIE['username'])){
              !empty($_POST['phone'])    &&
              !empty($_POST['birthday']) )
           {
+              $_POST["name"]  = str_convert($_POST['name']);
+              $_POST['intro'] = str_convert($_POST['intro']);
+
               $mql = new MysqlOperation($usr_base);
               $result = $mql->query("UPDATE {$table} SET
               name=\"{$_POST['name']}\", sex={$_POST['sex']},
