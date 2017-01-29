@@ -3,9 +3,11 @@ session_start();
 require_once("phpModel/MysqlOperation.php");
 $id       = empty($_GET['id'])       ? null : $_GET['id'];
 $username = empty($_GET['username']) ? null : $_GET['username'];
+
 if(!is_numeric($id)){
   die("参数错误");
 }
+
 if($id !== null && $username !== null)
 {
     $usr_table = "user";
@@ -13,6 +15,7 @@ if($id !== null && $username !== null)
 
     $mql = new MysqlOperation($usr_base);
     $result = $mql->query("SELECT * from {$usr_table} WHERE username=\"{$username}\"");
+
     if($result->num_rows == 0){
       die("亲,用户不存在");
     }
@@ -20,36 +23,33 @@ if($id !== null && $username !== null)
     $mql = new MysqlOperation($art_base);
     $result = $mql->query("SELECT * FROM {$artical_table} WHERE id={$id}");
 
-    if($result->num_rows == 0){
+    if($result->num_rows === 0){
       die("亲,文章不存在");
     }
 
     $artical = $result->fetch_assoc();
-    if($artical['view_permission'] == '0')
+    //是否是本人
+    $is_yourself = false;
+    if(isset($_COOKIE['username']))
     {
-        if(isset($_COOKIE['username']))
+        $server = $_SESSION[$_COOKIE['username']];
+        if($server)
         {
-            $server = $_SESSION[$_COOKIE['username']];
-            if($server)
+            if($server['username'] == $_COOKIE['username'] ||
+               $server['password'] == $_COOKIE['password'] ||
+               $server['csym'] == $_COOKIE['csym'])
             {
-                if($server['username'] != $_COOKIE['username'] ||
-                   $server['password'] != $_COOKIE['password'] ||
-                   $server['csym'] != $_COOKIE['csym'])
-                {
-                    die("您没有权限访问");
-                }
-                else
-                {
-                  //增加浏览量
-                  $mql->query("UPDATE {$artical_table} SET pageviews=pageviews+1 WHERE id={$id}");
-                }
+                $is_yourself = true;
             }
-            else
-                die("您没有权限访问");
         }
-        else
-            die("您没有权限访问");
     }
+    //无权限
+    if($artical['view_permission'] == '0' && !$is_yourself)
+        die("您没有权限访问");
+
+    //不是本人登录则更新浏览量
+    if(!$is_yourself)
+        $mql->query("UPDATE {$artical_table} SET pageviews=pageviews+1 WHERE id={$id}");
 }
 ?>
 

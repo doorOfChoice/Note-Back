@@ -4,6 +4,9 @@
 }
 img{
   max-width: 100%;
+  margin: auto;
+  clear: both;
+  display: block;
 }
 html, body{
   width: 100%;
@@ -79,6 +82,7 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
   height: 32px;
   top: 48%;
   left: 48%;
+
 }
 
 .upload-panel{
@@ -189,6 +193,8 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 .menu-list .menu-list-delete{
   position: inherit;
   top : 2px;
+  left: -moz-calc(100% - 20px - 10px);
+  left: -webkit-calc(100% - 20px - 10px);
   left: calc(100% - 20px - 10px);
   color: white;
   transition: color 0.5s;
@@ -200,7 +206,9 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
 
 .menu-list .menu-list-artattr{
   position: inherit;
-  left: calc(100% - 20px - 40px);
+  left: -moz-calc(100% - 20px - 40px);
+  left: -webkit-calc(100% - 20px - 40px);
+  left: calc(100% - 20px - 32px);
   color: white;
   transition: color 0.5s;
 }
@@ -214,15 +222,25 @@ textarea[name='editor-box']::-webkit-scrollbar-thumb {
   height: 32px;
   display: block;
 }
+
 .icon{
   cursor: pointer;
   width: 32px;
   height: 32px;
   float: right;
+  clear: none;
+  display: inline;
   background-color: inherit;
   transform: rotateZ(0deg);
   transition: transform 0.5s;
 }
+
+@media (max-width: 768px) {
+  .artical-unit .menu-list{
+    font-size: 16px;
+  }
+}
+
 .menu-group .icon:hover{
   transform: rotateZ(360deg);
 }

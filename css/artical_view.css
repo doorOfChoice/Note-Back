@@ -12,6 +12,13 @@ body{
   background-color: white;
 }
 
+img{
+  max-width: 80%;
+  margin: auto;
+  display: block;
+  clear: both;
+}
+
 a{
   color: white;
   text-decoration: none;
@@ -56,6 +63,7 @@ a:visited{
 
 .title-attention{
   border-left: 10px solid grey;
+  border-right: 10px solid grey;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
