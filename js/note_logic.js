@@ -4,17 +4,75 @@ function articalLegal(){
          $.trim($("#tags").val())  != '';
 }
 
+//删除文章
+function menuDeleteClick(symb){
+  $(symb).bind("click", function(event){
+    event.stopPropagation();
+    if(confirm("你确定要删除这篇文章吗?")){
+        $(".loading-panel").show();
+        var active = $(this).parent().parent();
+        var idcode = active.find(".artical-id").text();
+
+        $.post("phpModel/artical_delete.php", {id : idcode}, function(data){
+          if(data.status == 'ok'){
+            active.remove();
+            var children = $(".artical-unit");
+            if(children.length !== 0){
+              $(children[0]).click();
+            }else{
+              $(".loading-panel").hide();
+            }
+          }
+
+        }, "json");
+    }
+    return false;
+  });
+}
+
+function menuAttrClick(symb){
+    $(symb).bind("click", function(event){
+        event.stopPropagation();
+        $(".loading-panel").show();
+        var id = $(this).parent().parent().find(".artical-id").text();
+        var response = $.ajax("phpModel/artical_find.php", {
+          type : "POST",
+          dataType : "json",
+          data : {
+            string : id,
+            query_type : "1"
+          }
+        }).done(function(data){
+          if(data.length === 1){
+            $(".menu-list-box-title").text("标题: "+ data[0].title);
+            $(".menu-list-box-olddate").text("创建时间: "+ data[0].create_date);
+            $(".menu-list-box-newdate").text("修改时间: "+ data[0].change_date);
+            $(".menu-list-box-wordCount").text("字符数: "+ data[0].content.length);
+            $(".menu-list-box-permission").val(data[0].view_permission);
+            $(".menu-list-box-link").attr("href", "artical_view.php?username="+USERNAME+"&id="+id);
+            $(".menu-list-box-id").text(id);
+            $('#modal').modal({show : true, keyboard : true});
+          }
+        }).fail(function(){
+          alert("修改失败, 请检查网络或者登录状态");
+        }).always(function(){
+          $(".loading-panel").hide();
+        });
+
+    });
+}
+
 //设定note块的点击事件
 function unitClick(comp, symb){
   //点击后的颜色特效
-  $(comp).bind("click", function(e){
+  $(comp).bind("click", function(event){
     var parent = $(this).parent();
     parent.find(comp).removeClass(symb);
     $(this).addClass(symb);
   });
 
   //向服务器请求要的某篇文档
-  $(comp).bind("click", function(e){
+  $(comp).bind("click", function(event){
     $(".loading-panel").show();
     $.post("phpModel/artical_find.php", {
       query_type : 1,
@@ -46,11 +104,21 @@ function create_content(data){
     var title = $("<h4 class='artical-title'>").text(data[i].title);
     var date  = $("<p class='artical-date'>").text(data[i].create_date);
     var content = $("<p class='artical-content'>").text(data[i].content);
-    unit.append(id, tags, title, date, content);
+    var menuDelete = $("<span class='glyphicon glyphicon-remove menu-list-delete'></span>");
+    var menuAttr = $("<span class='glyphicon glyphicon-th-list menu-list-artattr'></span>");
+    var menuList = $("<div class='menu-list'></div>").append(menuAttr, menuDelete);
+    unit.bind("mouseover", function(e){
+       $(this).parent().parent().find(".artical-title").addClass("artical-unit-goin");
+    }).bind("mouseleave", function(e){
+       $(this).parent().parent().find(".artical-title").removeClass("artical-unit-goin");
+    });
+    unit.append(menuList, id, tags, title, date, content);
     notebook.append(unit);
   }
   $(".artical-unit").dotdotdot();
   unitClick(".artical-unit", "active");
+  menuDeleteClick(".menu-list-delete");
+  menuAttrClick(".menu-list-artattr");
 }
 
 /*

@@ -51,9 +51,50 @@
     <div class="loading-panel" hidden>
       <img src="picture/loading.gif" class="loading-icon" alt="">
     </div>
+    <!-- 模态框，用来对某文章进行操作 -->
+    <div id ="modal" class="modal fade menu-list-box" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+            <div class="modal-title">
+              文章信息
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <p class="menu-list-box-id" hidden></p>
+            <p class="menu-list-box-title">标题:</p>
+            <p class="menu-list-box-olddate">创建时间:</p>
+            <p class="menu-list-box-newdate">最近修改:</p>
+            <p class="menu-list-box-wordCount">字数:</p>
+            <div class="input-group">
+              <label for="">是否允许他人查看此文章</label>
+              <select class="form-control menu-list-box-permission" name="">
+                <option value="0">禁止</option>
+                <option value="1">允许</option>
+              </select>
+            </div>
+            <a href="#" class="menu-list-box-link" target="_blank">文章地址</a><br/>
+            <div class="button-group">
+              <button type="button" class="btn btn-primary menu-list-box-save">保存</button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <div id="note-container" class="container">
       <div class="row">
+
         <div class="col-md-2 col-sm-4 col-xs-4" style="background-color:white; height:100%; padding:0px" id="row-notebook">
+
           <div class="menu">
             <div class="menu-group interval">
               <img src="picture/add.svg"  class="icon" id="add-artical" alt="新建笔记">
@@ -61,6 +102,7 @@
              <img src="picture/logout.svg" class="icon" id="usr-logout" alt="注销">
             </div>
           </div>
+
           <div class="search-group">
             <div class="input-group">
               <input type="text" class="search-box form-control " id="sear-box" placeholder="搜索">
@@ -69,6 +111,7 @@
               </span>
             </div>
           </div>
+
           <div id="note-notebook" >
 
           </div>
@@ -110,7 +153,6 @@
 
               <div  id="buttonGroup" >
                 <button type="button" class="btn btn-success" id="save">保存</button>
-                <button type="button" class="btn btn-danger" id="delete">删除</button>
                 <button type="button" class="btn btn-info" id="uppic">上传图片</button>
               </div>
           </div>

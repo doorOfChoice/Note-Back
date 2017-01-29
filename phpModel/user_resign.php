@@ -36,6 +36,7 @@ if(!empty($_POST['username']) &&
             create_date DATETIME NOT NULL,
             change_date DATETIME NOT NULL,
             pageviews INT NOT NULL DEFAULT 0,
+            view_permission BOOLEAN NOT NULL DEFAULT 0,
             title VARCHAR(100) NOT NULL,
             tags VARCHAR(100) NOT NULL,
             content MEDIUMTEXT,

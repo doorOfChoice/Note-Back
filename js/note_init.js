@@ -39,28 +39,6 @@ $(function(){
     , "json");
   });
 
-
-  //删除指定序号的文章
-  $("#delete").bind("click", function(e){
-    $(".loading-panel").show();
-    var active = $(".active");
-    var idcode = active.find(".artical-id").text();
-    $.post("phpModel/artical_delete.php", {id : idcode}, function(data){
-      if(data.status == 'ok'){
-        active.remove();
-
-        var children = $(".artical-unit");
-        if(children.length !== 0){
-          $(children[0]).click();
-        }else{
-          $(".loading-panel").hide();
-        }
-      }
-
-    }, "json");
-  });
-
-
   //查找指定标题的文章
   $("#sear-btn").bind("click", function(e){
     $(".loading-panel").show();
@@ -140,6 +118,27 @@ $(function(){
       $(".upload-panel").hide();
     }
 
+  });
+  //保存文章其他信息
+  $(".menu-list-box-save").bind("click", function(e){
+      $(".loading-panel").show();
+
+      var response = $.ajax("phpModel/artical_information_modify.php",{
+        type : "POST",
+        dataType : "JSON",
+        data : {
+          id : $(".menu-list-box-id").text(),
+          view_permission : $(".menu-list-box-permission").val()
+        }
+      }).done(function(data){
+        if(data.status === 200){
+          alert("保存成功");
+        }
+      }).fail(function(){
+        alert("修改失败, 请检查网络或者登录状态");
+      }).always(function(){
+        $(".loading-panel").hide();
+      });
   });
 
   //文件被选择后显示缩略图
