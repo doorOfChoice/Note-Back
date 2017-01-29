@@ -30,21 +30,20 @@
         }
     ?>
 
-    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/highlight/styles/atom-one-dark.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/noteManager.css">
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="bs/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bs/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/marked.js"></script>
+    <script type="text/javascript" src="js/highlight/highlight.pack.js"></script>
     <script type="text/javascript" src="js/markdown_dom_parser.js"></script>
     <script type="text/javascript" src="js/html2markdown.js"></script>
     <script type="text/javascript" src="js/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="js/note_logic.js"></script>
     <script type="text/javascript" src="js/note_init.js"></script>
-
-    <script type="text/javascript">
-
-    </script>
     <title>NoteManager</title>
   </head>
   <body>

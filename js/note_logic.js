@@ -29,7 +29,10 @@ function menuDeleteClick(symb){
     return false;
   });
 }
-
+/*
+* 为文章操作栏目按钮添加监听键
+* 包括获取数据和修改数据
+*/
 function menuAttrClick(symb){
     $(symb).bind("click", function(event){
         event.stopPropagation();
@@ -84,6 +87,10 @@ function unitClick(comp, symb){
         $(".editor-box").val(data[0].content);
         $("#preview").html(marked(data[0].content));
       }
+      //让代码高亮
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
       $(".loading-panel").hide();
     }, "json");
   });

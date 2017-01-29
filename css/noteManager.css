@@ -2,6 +2,10 @@
   height: auto;
   font-family: "Microsoft Yahei";
 }
+pre{
+  background: none;
+  border: none;
+}
 img{
   max-width: 100%;
   margin: auto;

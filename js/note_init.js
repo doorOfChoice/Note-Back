@@ -119,6 +119,7 @@ $(function(){
     }
 
   });
+
   //保存文章其他信息
   $(".menu-list-box-save").bind("click", function(e){
       $(".loading-panel").show();
@@ -167,6 +168,10 @@ $(function(){
 
   box.bind("keyup", function(e){
     preview.html(marked($(this).val()));
+    //让代码高亮
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
   });
 
   box.bind("keydown", function(e){

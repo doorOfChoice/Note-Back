@@ -58,18 +58,16 @@ if($id !== null && $username !== null)
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/highlight/styles/atom-one-dark.css">
     <link rel="stylesheet" href="css/artical_view.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="bs/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bs/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/highlight/highlight.pack.js"></script>
     <script type="text/javascript" src="js/marked.js"></script>
-    <style media="screen">
-      img{
-        max-width: 100%;
-      }
-    </style>
-    <title></title>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+    <title><?php echo $artical['title']; ?></title>
   </head>
   <body>
     <div class="container">
@@ -114,7 +112,7 @@ if($id !== null && $username !== null)
                         <?php
                            $tags = preg_split("/\s/", $artical['tags']);
                            foreach ($tags as $key => $value) {
-                             echo "<span class='label label-primary'><a href=''>{$value}</a></span> ";
+                             echo "<span class='label label-primary tags'><a href=''>{$value}</a></span> ";
                            }
                         ?>
                       </div>

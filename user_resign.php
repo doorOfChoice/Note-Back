@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="robots" content="all">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/user_resign.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bs/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/laydate/laydate.js"></script>
     <script type="text/javascript" src="js/user_logic.js"></script>
     <script type="text/javascript" src="js/user_init.js"></script>

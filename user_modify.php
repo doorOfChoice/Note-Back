@@ -26,11 +26,11 @@
           echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"0; url=user_login.php\"";
         }
     ?>
-    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bs/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/user_modify.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="bs/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bs/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/laydate/laydate.js"></script>
     <script type="text/javascript" src="js/user_logic.js"></script>
     <script type="text/javascript" src="js/user_modify.js"></script>
